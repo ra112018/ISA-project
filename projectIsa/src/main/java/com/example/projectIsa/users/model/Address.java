@@ -2,7 +2,6 @@ package com.example.projectIsa.users.model;
 
 public class Address {
 	
-	private int idLocation;
 	private double longitude; 
     private double latitude; 
     private String street;
@@ -12,14 +11,6 @@ public class Address {
     private String postcode;  
     
 	public Address() {}
-
-	public int getIdLocation() {
-		return idLocation;
-	}
-
-	public void setIdLocation(int idLocation) {
-		this.idLocation = idLocation;
-	}
 
 	public double getLongitude() {
 		return longitude;
