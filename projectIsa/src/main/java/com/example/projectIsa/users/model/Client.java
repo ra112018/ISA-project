@@ -4,7 +4,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "FishingInstructor")
-public class FishingInstructor extends User {
+@DiscriminatorValue(value = "Client")
+public class Client extends User{
 
+	
 }

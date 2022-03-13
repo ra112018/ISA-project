@@ -1,7 +1,9 @@
 package com.example.projectIsa.users.model;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity
 @DiscriminatorValue(value = "BoatOwner")
 public class BoatOwner extends User{
 	private String explanationBO;
