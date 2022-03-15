@@ -4,10 +4,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "BoatOwner")
+@DiscriminatorValue("BoatOwner")
 public class BoatOwner extends User{
+
 	private String explanationBO;
+	
 	private String verificationBO;
+
 	private Boolean isEnabledBO;
 	
 	public BoatOwner() {

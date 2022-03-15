@@ -1,13 +1,17 @@
 package com.example.projectIsa.users.model;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "CottageOwner")
+@DiscriminatorValue("CottageOwner")
 public class CottageOwner extends User{
+
 	private String explanationCO;
+
 	private String verificationCO;
+
 	private Boolean isEnabledCO;
 	
 	public CottageOwner() {
