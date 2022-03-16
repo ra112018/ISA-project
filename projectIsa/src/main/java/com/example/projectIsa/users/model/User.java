@@ -3,14 +3,15 @@ package com.example.projectIsa.users.model;
 import static javax.persistence.DiscriminatorType.STRING;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
@@ -34,9 +35,10 @@ public abstract class User {
 
 	private String phoneNumber;
 	
-	//@Type(type = "jsonb")
-	//@Column(columnDefinition = "jsonb", name = "address")
-	//private Address address;
+	//https://www.baeldung.com/jpa-one-to-one
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+	private Address address;
 	
 	private Boolean deleted;
 	
@@ -108,17 +110,15 @@ public abstract class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-	/*
+		
 	public Address getAddress() {
 		return address;
 	}
 	
 	public void setAddress(Address address) {
 		this.address = address;
-	}*/
-	
-	
+	}
+		
 	public Boolean getDeleted() {
 		return deleted;
 	}
