@@ -9,7 +9,7 @@ Vue.component("landing-page", {
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end sticky-top">
 		<ul class="navbar-nav">
 			<li class="nav-item active">
-		      <a class="nav-link" href="#">Registration</a>
+		      <a class="nav-link" href="#/registration-choice">Registration</a>
 		    </li>
 		    <li class="nav-item active">
 		      <a class="nav-link" href="#">Login</a>
