@@ -25,7 +25,7 @@ Vue.component("registration-choice", {
     
     <div class="text-center">
     	<div class="mt-5 mb-4"><a href="#" class="btn btn-info btn-lg" role="button">Register me as user</a></div>
-    	<div><a href="#" class="btn btn-info btn-lg" role="button">Register me as cottage owner, boat owner or instructor</a></div>
+    	<div><a href="#/registration-owners-instructors" class="btn btn-info btn-lg" role="button">Register me as cottage owner, boat owner or instructor</a></div>
     </div>
     
     

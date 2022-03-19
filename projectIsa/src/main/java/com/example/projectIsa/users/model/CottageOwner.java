@@ -8,38 +8,38 @@ import javax.persistence.Entity;
 @DiscriminatorValue("CottageOwner")
 public class CottageOwner extends User{
 
-	private String explanationCO;
+	private String explanation;
 
-	private String verificationCO;
+	private String verification;
 
-	private Boolean isEnabledCO;
+	private Boolean isEnabled;
 	
 	public CottageOwner() {
-		this.isEnabledCO = false;
+		this.isEnabled = false;
 	}
 
-	public String getExplanationCO() {
-		return explanationCO;
+	public String getExplanation() {
+		return explanation;
 	}
 
-	public void setExplanationCO(String explanationCO) {
-		this.explanationCO = explanationCO;
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
 
-	public String getVerificationCO() {
-		return verificationCO;
+	public String getVerification() {
+		return verification;
 	}
 
-	public void setVerificationCO(String verificationCO) {
-		this.verificationCO = verificationCO;
+	public void setVerification(String verification) {
+		this.verification = verification;
 	}
 
-	public Boolean getIsEnabledCO() {
-		return isEnabledCO;
+	public Boolean getIsEnabled() {
+		return isEnabled;
 	}
 
-	public void setIsEnabledCO(Boolean isEnabledCO) {
-		this.isEnabledCO = isEnabledCO;
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 	
 }
