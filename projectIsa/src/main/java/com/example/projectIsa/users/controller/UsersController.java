@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class UsersController {
 	
 	@GetMapping()
