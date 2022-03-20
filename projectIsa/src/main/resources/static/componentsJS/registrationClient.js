@@ -7,7 +7,7 @@ Vue.component("registration-client", {
 	      email: null,
 	      password:null,
 	      repeatPassword: null,
-	      phoneNumbe: null,
+	      phoneNumber: null,
 	      state: null,
 	      city: null,
 	      street: null,
@@ -59,7 +59,29 @@ Vue.component("registration-client", {
 				alert("Postcode can only contain digits!")
 				e.preventDefault();
       		}else {
-      			alert("Poslato!")
+      			this.client = {}
+      			this.address = {}
+      			this.client.name = this.name;
+      			this.client.surname = this.surname;
+      			this.client.email = this.email;
+      			this.client.password = this.password;
+      			this.client.phoneNumber = this.phoneNumber;
+      			this.address.state = this.state;
+      			this.address.city = this.city;
+      			this.address.street = this.street;
+      			this.address.houseNumber = this.houseNumber;
+      			this.address.postcode = this.postcode;
+      			this.client.address = this.address;
+      			
+      			alert("Salje se!")
+      			
+      			axios
+        		.post('/registration', {clientDto: this.client})
+        		.then(function(response){ 
+        				alert("Uspesno!")
+        				router.replace({ path: `/` })       			
+           		});
+      			
       		}
      
     },
