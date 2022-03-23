@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
+import RegistrationChoice from "../components/RegistrationChoice.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -11,7 +12,11 @@ const router = createRouter({
       component: LandingPage,
     },
     {
-      path: "/registration",
+      path: "/registration-choice",
+      component: RegistrationChoice,
+    },
+    {
+      path: "/registration-client",
       component: ClientRegistration,
     },
   ],
