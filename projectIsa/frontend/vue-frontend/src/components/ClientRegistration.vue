@@ -6,7 +6,7 @@
 import ClientRegistrationService from '../services/ClientRegistrationService'
 
 export default {
-    name : 'RegistrationClient',
+    name : 'ClientRegistration',
     data() {
        return {
            nesto : null

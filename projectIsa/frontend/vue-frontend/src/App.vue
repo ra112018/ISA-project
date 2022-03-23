@@ -1,17 +1,20 @@
 <template>
   <div> 
-  <RegistrationClient />
+    <div id="nav">
+      <router-link to="/"> Home</router-link>
+      <router-link to="/registration">Contact </router-link>
+    </div>
+    <router-view />
   </div>
 
 </template>
 
 <script>
-import RegistrationClient from './components/RegistrationClient.vue'
 
 export default {
   name: 'App',
   components: {
-    RegistrationClient
+
   }
 }
 </script>
