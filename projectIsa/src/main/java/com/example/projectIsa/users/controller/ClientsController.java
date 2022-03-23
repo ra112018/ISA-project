@@ -5,6 +5,7 @@ import java.text.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ public class ClientsController {
 	
 	public ClientsController(IClientService clientService) {
 		this.clientService = clientService;
+	}
+	
+	@GetMapping(value = "/hello")
+	public String hello () {
+		System.out.println("Ovde hello");
+	    return "Hello";
 	}
 	
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
