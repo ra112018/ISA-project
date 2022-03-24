@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
+import OwnersInstructorRegistration from "../components/OwnersInstructorRegistration.vue";
 import RegistrationChoice from "../components/RegistrationChoice.vue";
 
 const routerHistory = createWebHistory();
@@ -18,6 +19,10 @@ const router = createRouter({
     {
       path: "/registration-client",
       component: ClientRegistration,
+    },
+    {
+      path: "/registration-owner-instructor",
+      component: OwnersInstructorRegistration,
     },
   ],
 });

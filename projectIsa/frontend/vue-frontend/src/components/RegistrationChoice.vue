@@ -7,7 +7,7 @@
         <a href="/registration-client" class="btn btn-success fs-4">Register me as client</a>
     </div>
     <div class="container mt-3">
-        <a href="#" class="btn btn-success fs-4">Register me as cottage owner, boat owner or instructor</a>
+        <a href="/registration-owner-instructor" class="btn btn-success fs-4">Register me as cottage owner, boat owner or instructor</a>
     </div>  
   </div>   
 </template>
