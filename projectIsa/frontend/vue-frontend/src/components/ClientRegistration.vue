@@ -84,6 +84,9 @@ export default {
                 console.log(this.nesto);
             });
         },
+        registerClient(client){
+            ClientRegistrationService.registerClient(client);
+        },
         formSubmit(e) {
         e.preventDefault();
         this.errors = null;
@@ -141,7 +144,8 @@ export default {
       			this.client.address = this.address;
       			
       			alert("Salje se!")
-                this.getRegist()
+                console.log(this.client);
+                this.registerClient(this.client)
     			
       		}    
         },

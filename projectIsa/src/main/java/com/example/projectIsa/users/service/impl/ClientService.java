@@ -22,7 +22,7 @@ public class ClientService implements IClientService{
 	@Override
 	public Client registerClient(ClientDTO clientDto) {
 		Client client = ClientMapper.MapToClient(clientDto);
-		//clientRepository.save(client);
+		clientRepository.save(client);
 		return client;
 	}
 

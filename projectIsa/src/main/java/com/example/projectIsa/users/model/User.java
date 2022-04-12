@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -36,8 +37,8 @@ public abstract class User {
 	private String phoneNumber;
 	
 	//https://www.baeldung.com/jpa-one-to-one
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="address_id", referencedColumnName = "id")
 	private Address address;
 	
 	private Boolean deleted;
