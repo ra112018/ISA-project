@@ -40,7 +40,7 @@
             
             <div class="m-3" style="width: 95%; display:inline-block">
                 <label for="role" class="form-label">Role:</label>
-                <select type="text" class="form-control mx-auto text-center" id="role" placeholder="Enter your user role" required>
+                <select type="text" class="form-control mx-auto text-center" id="role" v-model="role" placeholder="Enter your user role" required>
                     <option value="cottageOwner">Cottage owner</option>
                     <option value="boatOwner">Boat owner</option>
                     <option value="instructor">Fishing instructor</option>
@@ -81,11 +81,7 @@ export default {
     },
     methods: {
         getRegist(){
-            OwnerInstructorRegistrationService.Register().then((response) => {
-                console.log("evo")
-                this.nesto = response.data;
-                console.log(this.nesto);
-            });
+            this.nesto = OwnerInstructorRegistrationService.Register(this.client);
         },
         formSubmit(e) {
         e.preventDefault();
@@ -136,12 +132,14 @@ export default {
       			this.client.email = this.email;
       			this.client.password = this.password;
       			this.client.phoneNumber = this.phoneNumber;
+                this.client.role = this.role;
+                this.client.explanation = this.explanation;
       			this.address.state = this.state;
       			this.address.city = this.city;
       			this.address.street = this.street;
       			this.address.houseNumber = this.houseNumber;
       			this.address.postcode = this.postcode;
-      			this.client.address = this.address;
+      			this.client.address = this.address.street;
       			
       			alert("Salje se!")
                 this.getRegist()

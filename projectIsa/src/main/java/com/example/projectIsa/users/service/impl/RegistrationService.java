@@ -21,9 +21,9 @@ public class RegistrationService implements IRegistrationService {
 
 	@Override
 	public FishingInstructor registerInstructor(OwnerDTO ownerDto) {
-		FishingInstructor owner = OwnerMapper.MapToOwner(ownerDto);
-		//clientRepository.save(client);
-		return owner;
+		FishingInstructor instructor = OwnerMapper.MapToOwner(ownerDto);
+		instructorRepository.save(instructor);
+		return instructor;
 	}
 
 }

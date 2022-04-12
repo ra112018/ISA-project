@@ -14,15 +14,17 @@ public class OwnerMapper {
 		fishingInstructor.setEmail(ownerDto.getEmail());
 		fishingInstructor.setPassword(ownerDto.getPassword());
 		fishingInstructor.setPhoneNumber(ownerDto.getPhoneNumber());
+		fishingInstructor.setRole(ownerDto.getRole());
 		
 		Address address = new Address();
-		address.setState(ownerDto.getAddress().getState());
-		address.setCity(ownerDto.getAddress().getCity());
+		address.setState(ownerDto.getAddress());
+		address.setUser(fishingInstructor);
+	/*	address.setCity(ownerDto.getAddress().getCity());
 		address.setStreet(ownerDto.getAddress().getStreet());
 		address.setHouseNumber(ownerDto.getAddress().getHouseNumber());
-		address.setPostcode(ownerDto.getAddress().getPostcode());
+		address.setPostcode(ownerDto.getAddress().getPostcode());*/
 		
-		fishingInstructor.setAddress(address);
+		//fishingInstructor.setAddress(address);
 		
 		return fishingInstructor;
 	}

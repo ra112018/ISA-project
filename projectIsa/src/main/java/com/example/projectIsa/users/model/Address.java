@@ -2,6 +2,8 @@ package com.example.projectIsa.users.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -13,7 +15,8 @@ import javax.persistence.Table;
 public class Address {
 	
 	@Id
-	@Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
 	private double longitude; 
     private double latitude; 
@@ -23,9 +26,7 @@ public class Address {
     private String houseNumber;        
     private String postcode; 
     
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "address")
     private User user;
     
 	public Address() {}
