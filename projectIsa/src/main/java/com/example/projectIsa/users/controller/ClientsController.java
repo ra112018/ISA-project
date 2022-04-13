@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +25,10 @@ public class ClientsController {
 		this.clientService = clientService;
 	}
 	
-	@GetMapping(value = "/hello")
-	public String hello () {
-		System.out.println("Ovde hello");
-	    return "Hello";
-	}
 	
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> registerClient(@RequestBody ClientDTO clientDto) throws ParseException {
 		try {
-			System.out.println("Ovde je klijent");
 			clientService.registerClient(clientDto);
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -25,7 +25,6 @@ public class ClientMapper {
 		address.setPostcode(clientDto.getAddress().getPostcode());
 		
 		client.setAddress(address);
-		//address.setUser(client);
 		
 		return client;
 	}

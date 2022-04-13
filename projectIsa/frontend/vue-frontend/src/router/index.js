@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
 import RegistrationChoice from "../components/RegistrationChoice.vue";
+import LoginUser from "../components/LoginUser.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -18,6 +19,10 @@ const router = createRouter({
     {
       path: "/registration-client",
       component: ClientRegistration,
+    },
+    {
+      path: "/login",
+      component: LoginUser,
     },
   ],
 });

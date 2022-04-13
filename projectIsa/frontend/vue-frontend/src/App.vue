@@ -7,7 +7,7 @@
             </div>
             <div class="navbar-nav ms-auto">
                 <router-link to="/registration-choice" class="nav-item nav-link">Registration</router-link>
-                <router-link to="/Login" class="nav-item nav-link">Login</router-link>
+                <router-link to="/login" class="nav-item nav-link">Login</router-link>
             </div>
       </nav>
     </div>

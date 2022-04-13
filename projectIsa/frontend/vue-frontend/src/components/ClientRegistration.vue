@@ -73,17 +73,10 @@ export default {
             street : null,
             houseNumber : null,
             postcode : null,
-            showErrorMessage : false,
-            nesto : null
+            showErrorMessage : false
        }
     },
     methods: {
-        getRegist(){
-            ClientRegistrationService.getRegist().then((response) => {
-                this.nesto = response.data;
-                console.log(this.nesto);
-            });
-        },
         registerClient(client){
             ClientRegistrationService.registerClient(client);
         },
