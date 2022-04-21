@@ -9,6 +9,7 @@ import com.example.projectIsa.users.model.FishingInstructor;
 import com.example.projectIsa.users.model.enums.AllowedLogin;
 import com.example.projectIsa.users.repository.FishingInstructorRepository;
 import com.example.projectIsa.users.service.IRegistrationService;
+import com.example.projectIsa.users.service.IUserService;
 
 @Service
 public class RegistrationService implements IRegistrationService {
@@ -26,8 +27,6 @@ public class RegistrationService implements IRegistrationService {
 		instructor.setDeleted(false);
 		instructor.setAllowLogin(AllowedLogin.WaitingAdmin);
 		instructorRepository.save(instructor);
-		
 		return instructor;
 	}
-
 }

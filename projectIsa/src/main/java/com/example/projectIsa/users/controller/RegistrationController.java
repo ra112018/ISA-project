@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.OwnerDTO;
 import com.example.projectIsa.users.service.IRegistrationService;
+import com.example.projectIsa.users.service.IUserService;
 
 @RestController
 @RequestMapping(value = "/registration-owner-instructor")
 public class RegistrationController {
 
 	private final IRegistrationService registrationService;
+	private final IUserService userService;
+
 	
-	public RegistrationController(IRegistrationService registrationService) {
+	public RegistrationController(IRegistrationService registrationService, IUserService userService) {
 		this.registrationService = registrationService;
+		this.userService = userService;
+
 	}
 	
 	@GetMapping(value = "/hello")
@@ -33,6 +38,10 @@ public class RegistrationController {
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?>  registrationOwner(@RequestBody OwnerDTO ownerDto) throws ParseException {
 		try {
+			if(!userService.checkUniqueUsername(ownerDto.getEmail())) {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+			}
 			registrationService.registerInstructor(ownerDto);
 		}catch(Exception e) {
 			e.printStackTrace();

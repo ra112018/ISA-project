@@ -6,7 +6,7 @@
         <form @submit="formSubmit">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Username:</label>
-                <input type="text" class="form-control text-center" id="username" placeholder="Enter your Username" name="name" v-model="username" required>
+                <input type="text" class="form-control text-center" id="username" placeholder="Enter your username" name="username" v-model="username" required>
             </div>
              <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
@@ -21,23 +21,20 @@
 </template>
 
 <script>
-import ClientRegistrationService from '../services/ClientRegistrationService'
+import LoginService from '../services/LoginService'
 
 export default {
     name : 'LoginPage',
     data() {
        return {
-            name : null,
-	        password :null,
+            username : null,
+	        password : null,
             showErrorMessage : false,
        }
     },
     methods: {
         getRegist(){
-            ClientRegistrationService.getRegist().then((response) => {
-                this.nesto = response.data;
-                console.log(this.nesto);
-            });
+            this.nesto = LoginService.Login(this.user);
         },
         formSubmit(e) {
         e.preventDefault();
@@ -53,9 +50,11 @@ export default {
 				alert("Password and repeated password must be the same!")
 				e.preventDefault();
       		}else {
+                  
+      			this.user.username = this.username;
+                this.user.password = this.password;
       			alert("Salje se!")
                 this.getRegist()
-    			
       		}    
         },
         Word: function(value){

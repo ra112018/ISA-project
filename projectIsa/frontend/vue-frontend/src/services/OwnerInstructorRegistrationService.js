@@ -9,7 +9,12 @@ class OwnerInstructorRegistrationService {
         axios.post('http://localhost:8080/registration-owner-instructor/registration', owner).then((response) => {
             alert("Uspešna registracija!");
             return response.data;
-        }); 
+            }).catch(error => {
+            console.log(error.response);
+            if(error.response.status == 403){
+                alert("Your email is already used, please register with different email or try to log in");
+            }
+        }) ; 
     }
 }
 
