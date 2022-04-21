@@ -7,8 +7,7 @@ class OwnerInstructorRegistrationService {
         axios.get('http://localhost:8080/registration-owner-instructor/hello');
         console.log(owner)
         axios.post('http://localhost:8080/registration-owner-instructor/registration', owner).then((response) => {
-            console.log("evo")
-            console.log(response)
+            alert("Uspešna registracija!");
             return response.data;
         }); 
     }

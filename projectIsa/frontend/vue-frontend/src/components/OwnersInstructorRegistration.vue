@@ -126,7 +126,6 @@ export default {
 				e.preventDefault();
       		}else {
       			this.client = {}
-      			this.address = {}
       			this.client.name = this.name;
       			this.client.surname = this.surname;
       			this.client.email = this.email;
@@ -134,14 +133,13 @@ export default {
       			this.client.phoneNumber = this.phoneNumber;
                 this.client.role = this.role;
                 this.client.explanation = this.explanation;
-      			this.address.state = this.state;
-      			this.address.city = this.city;
-      			this.address.street = this.street;
-      			this.address.houseNumber = this.houseNumber;
-      			this.address.postcode = this.postcode;
-      			this.client.address = this.address.street;
+      			this.client.state = this.state;
+      			this.client.city = this.city;
+      			this.client.street = this.street;
+      			this.client.houseNumber = this.houseNumber;
+      			this.client.postcode = this.postcode;
       			
-      			alert("Salje se!")
+      			alert("Šalje se!")
                 this.getRegist()
     			
       		}    

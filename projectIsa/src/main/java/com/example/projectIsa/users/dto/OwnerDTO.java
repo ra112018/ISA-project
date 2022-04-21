@@ -1,9 +1,6 @@
 package com.example.projectIsa.users.dto;
 
-import com.example.projectIsa.users.model.Address;
-
 public class OwnerDTO  {
-	
 
 	private String name;
 
@@ -15,13 +12,20 @@ public class OwnerDTO  {
 
 	private String phoneNumber;
 
-	private String address;
+	private String state;
 	
+	private String city;
+	
+	private String street;
+	
+	private String houseNumber;
+	
+	private String postcode;
+
 	private String role;
 	
 	private String explanation;
 	
-
 	public String getName() {
 		return name;
 	}
@@ -52,12 +56,36 @@ public class OwnerDTO  {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-	public String getAddress() {
-		return address;
+
+	public String getState() {
+		return state;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
 	public String getRole() {
 		return role;

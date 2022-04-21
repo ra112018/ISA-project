@@ -3,6 +3,8 @@ import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
 import OwnersInstructorRegistration from "../components/OwnersInstructorRegistration.vue";
 import RegistrationChoice from "../components/RegistrationChoice.vue";
+import LoginPage from "../components/LoginPage.vue";
+
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -23,6 +25,10 @@ const router = createRouter({
     {
       path: "/registration-owner-instructor",
       component: OwnersInstructorRegistration,
+    },
+    {
+      path: "/login",
+      component: LoginPage,
     },
   ],
 });

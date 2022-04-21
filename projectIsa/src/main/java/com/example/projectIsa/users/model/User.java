@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
@@ -52,8 +51,6 @@ public abstract class User {
 	public User() {
 		
 	}
-	
-	
 
 	public User(Integer id, String name, String surname, String email, String password, String phoneNumber, 
 			Boolean deleted) {

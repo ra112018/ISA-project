@@ -5,7 +5,6 @@ import java.text.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.OwnerDTO;
 import com.example.projectIsa.users.service.IRegistrationService;
-import com.example.projectIsa.users.service.impl.RegistrationService;
 
 @RestController
 @RequestMapping(value = "/registration-owner-instructor")
@@ -35,7 +33,6 @@ public class RegistrationController {
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?>  registrationOwner(@RequestBody OwnerDTO ownerDto) throws ParseException {
 		try {
-			System.out.println(ownerDto);
 			registrationService.registerInstructor(ownerDto);
 		}catch(Exception e) {
 			e.printStackTrace();

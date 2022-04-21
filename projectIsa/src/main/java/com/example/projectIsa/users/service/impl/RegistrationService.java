@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.projectIsa.users.dto.OwnerDTO;
 import com.example.projectIsa.users.mapper.OwnerMapper;
 import com.example.projectIsa.users.model.FishingInstructor;
+import com.example.projectIsa.users.model.enums.AllowedLogin;
 import com.example.projectIsa.users.repository.FishingInstructorRepository;
 import com.example.projectIsa.users.service.IRegistrationService;
 
@@ -22,7 +23,10 @@ public class RegistrationService implements IRegistrationService {
 	@Override
 	public FishingInstructor registerInstructor(OwnerDTO ownerDto) {
 		FishingInstructor instructor = OwnerMapper.MapToOwner(ownerDto);
+		instructor.setDeleted(false);
+		instructor.setAllowLogin(AllowedLogin.WaitingAdmin);
 		instructorRepository.save(instructor);
+		
 		return instructor;
 	}
 

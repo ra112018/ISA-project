@@ -1,9 +1,7 @@
 package com.example.projectIsa.users.mapper;
 
-import com.example.projectIsa.users.dto.ClientDTO;
 import com.example.projectIsa.users.dto.OwnerDTO;
 import com.example.projectIsa.users.model.Address;
-import com.example.projectIsa.users.model.Client;
 import com.example.projectIsa.users.model.FishingInstructor;
 
 public class OwnerMapper {
@@ -15,17 +13,25 @@ public class OwnerMapper {
 		fishingInstructor.setPassword(ownerDto.getPassword());
 		fishingInstructor.setPhoneNumber(ownerDto.getPhoneNumber());
 		fishingInstructor.setRole(ownerDto.getRole());
+		fishingInstructor.setExplanation(ownerDto.getExplanation());
 		
-		Address address = new Address();
-		address.setState(ownerDto.getAddress());
+		Address address = MapToAddress(ownerDto);
 		address.setUser(fishingInstructor);
-	/*	address.setCity(ownerDto.getAddress().getCity());
-		address.setStreet(ownerDto.getAddress().getStreet());
-		address.setHouseNumber(ownerDto.getAddress().getHouseNumber());
-		address.setPostcode(ownerDto.getAddress().getPostcode());*/
-		
-		//fishingInstructor.setAddress(address);
+		fishingInstructor.setAddress(address);
 		
 		return fishingInstructor;
 	}
+
+	public static Address MapToAddress(OwnerDTO ownerDto) {
+		// TODO Auto-generated method stub
+		Address address = new Address();
+		address.setState(ownerDto.getState());
+		address.setCity(ownerDto.getCity());
+		address.setStreet(ownerDto.getStreet());
+		address.setHouseNumber(ownerDto.getHouseNumber());
+		address.setPostcode(ownerDto.getPostcode());
+
+		return address;
+	}
+
 }
