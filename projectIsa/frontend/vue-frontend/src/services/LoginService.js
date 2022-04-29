@@ -2,18 +2,21 @@ import axios from 'axios'
 
 class LoginService {
 
-    Login(loginInfo){
+    Login(userInfo){
         console.log("servis")
-        return axios.post('http://localhost:8080/login-user/login', loginInfo).pipe(res => {
+        return axios.post('http://localhost:8080/users/login', userInfo).then((res) => {
             this.isLogin = true;
-            this.roleAs = res.user.role;
+            this.roleAs = res.data.role;
+            console.log(res.data.role)
             localStorage.setItem('STATE', 'true');
             localStorage.setItem('currentUser', JSON.stringify(res));
-            localStorage.setItem('currentUserId' , res.user.id.toString())
-            localStorage.setItem('ROLE', this.roleAs);
+            localStorage.setItem('currentUserId' , res.id)
+            localStorage.setItem('ROLE', res.data.role);
+            localStorage.setItem('statusLogin', res.status);
             this.currentUser = res;
             return res;
           });
+
     }
 }
 

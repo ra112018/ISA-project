@@ -21,41 +21,40 @@
 </template>
 
 <script>
+import router from '@/router'
 import LoginService from '../services/LoginService'
 
 export default {
     name : 'LoginPage',
     data() {
        return {
-            username : null,
-	        password : null,
-            showErrorMessage : false,
+        user: null,
+        password: null,
+        username: null,
+
+        showErrorMessage : false,
        }
     },
     methods: {
         getRegist(){
-            this.nesto = LoginService.Login(this.user);
+            this.client = {}
+            
+      		this.client.username = this.username;
+      		this.client.password = this.password;
+            this.nesto = LoginService.Login(this.client);
+            if(localStorage.getItem('statusLogin')=="200"){
+                console.log(localStorage.getItem('ROLE'));
+                if(localStorage.getItem('ROLE') == 'Administrator') {
+                    console.log("nestooo")
+                    router.push('/admin')
+                }
+            }
         },
         formSubmit(e) {
         e.preventDefault();
         this.errors = null;
-			if(!this.Word(this.name.trim())){
-			    alert("Name must contain a capital letter and letters only!")
-			    e.preventDefault();
-			}else if(!this.Word(this.surname.trim())){
-			    alert("Surname must contain a capital letter and letters only!")
-			    e.preventDefault();
-			}else if(this.repeatPassword.trim() != this.password.trim()){
-                this.showErrorMessage = true;
-				alert("Password and repeated password must be the same!")
-				e.preventDefault();
-      		}else {
-                  
-      			this.user.username = this.username;
-                this.user.password = this.password;
-      			alert("Salje se!")
-                this.getRegist()
-      		}    
+      	alert("Salje se!")
+        this.getRegist()  
         },
         Word: function(value){
             return /^[A-Z][a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(value);

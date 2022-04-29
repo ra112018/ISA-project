@@ -24,15 +24,13 @@ public class UsersController {
 	}
 	
 	@PostMapping(value = "/login", consumes =  MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?>  registrationOwner(@RequestBody UserLoginDTO userDto) throws ParseException {
-		try {
-			//userService.loginUser(userDto);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
+        try{
+            return new ResponseEntity(userService.login(userLoginDTO), HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+    }
 	
 
 }

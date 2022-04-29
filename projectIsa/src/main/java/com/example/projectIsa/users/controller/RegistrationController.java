@@ -49,5 +49,15 @@ public class RegistrationController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/requests")
+	public ResponseEntity<?> getRegistrationRequests() {
+		try {
+			return new ResponseEntity<>(registrationService.getRegistrationRequests(),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
