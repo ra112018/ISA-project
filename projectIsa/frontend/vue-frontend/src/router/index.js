@@ -3,6 +3,7 @@ import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
 import RegistrationChoice from "../components/RegistrationChoice.vue";
 import LoginUser from "../components/LoginUser.vue";
+import ClientHomePage from "../components/ClientHomePage.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -23,6 +24,10 @@ const router = createRouter({
     {
       path: "/login",
       component: LoginUser,
+    },
+    {
+      path: "/client-home-page",
+      component: ClientHomePage,
     },
   ],
 });

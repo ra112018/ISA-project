@@ -42,9 +42,9 @@ export default {
 				alert("Email is invalid!")
 				e.preventDefault();
       		}else {     			
-      			alert("Logovanje")
                 console.log(this.email, this.password);
-                this.login(this.email, this.password);		
+                //this.login(this.email, this.password);	
+                this.$router.push({path: '/client-home-page'}); 	
       		}    
         },
 	    Email: function(value){
