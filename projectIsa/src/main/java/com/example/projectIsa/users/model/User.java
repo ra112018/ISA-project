@@ -5,20 +5,29 @@ import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -28,7 +37,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public abstract class User implements UserDetails{
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "user_entity_id_seq", sequenceName = "user_entity_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_entity_id_seq")
 	private Integer id;
 
 	private String name;
@@ -48,20 +58,27 @@ public abstract class User implements UserDetails{
 	
 	private Boolean deleted;
 	
-	private String roles;
+	@Column(insertable = false, updatable = false)
+	private String role;
 	
 	private Date lastPasswordResetDate;
 	
-	private String username;
+	private boolean enabled;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
 		
 	public User() {
-		
+		this.enabled = false;
 	}
 	
 	
 
 	public User(Integer id, String name, String surname, String email, String password, String phoneNumber, 
-			Boolean deleted) {
+			Address address, String roles,boolean enabled, Date lastPasswordResetDate, List<Authority> authorities, Boolean deleted) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -69,6 +86,11 @@ public abstract class User implements UserDetails{
 		this.email = email;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.role = roles;
+        this.enabled = enabled;
+        this.lastPasswordResetDate = lastPasswordResetDate;
+        this.authorities = authorities;
 		this.deleted = deleted;
 	}
 
@@ -141,15 +163,14 @@ public abstract class User implements UserDetails{
 
 
 	public String getRole() {
-		return roles;
+		return role;
 	}
 
 
 
 	public void setRole(String role) {
-		this.roles = role;
+		this.role = role;
 	}
-
 
 
 	public Date getLastPasswordResetDate() {
@@ -157,52 +178,57 @@ public abstract class User implements UserDetails{
 	}
 
 
-
 	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
 		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
 
-
+	public String getUsername() {
+		return email;
+	} 
+		
 	public void setUsername(String username) {
-		this.username = username;
+		this.email = username;
+	}
+	
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.authorities;
 	}
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
+	@JsonIgnore
+    @Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	@Override
+	@JsonIgnore
+    @Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	@Override
+	@JsonIgnore
+    @Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return enabled;
 	}
 }

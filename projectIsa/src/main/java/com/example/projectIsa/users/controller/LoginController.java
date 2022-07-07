@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,43 +39,46 @@ public class LoginController {
 
 	 @Autowired
 	 private UserService userService;
+	 
+	 private PasswordEncoder passwordEncoder;
 
 
 	 @PostMapping("/login")
 	 public ResponseEntity<UserTokenStateDTO> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 	                                                                         HttpServletResponse response) {
-
+		 
 	 Authentication authentication = authenticationManager
 			 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-	                        authenticationRequest.getPassword()));
-
-	        SecurityContext ctx = SecurityContextHolder.createEmptyContext();
-	        SecurityContextHolder.setContext(ctx);
-	        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-	        User user = (User) authentication.getPrincipal();
-	        String jwt = tokenUtils.generateToken(user.getUsername());
-	        int expiresIn = tokenUtils.getExpiredIn();
-
-	        return ResponseEntity.ok(new UserTokenStateDTO(UserMapper.MapToDTO(user), jwt, expiresIn));
-	    }
-
+					 authenticationRequest.getPassword()));
 	 
-	    @PostMapping(value = "/refresh")
-	    public ResponseEntity<UserTokenStateDTO> refreshAuthenticationToken(HttpServletRequest request) {
 
-	        String token = tokenUtils.getToken(request);
-	        String username = this.tokenUtils.getUsernameFromToken(token);
-	        User user = (User) this.userDetailsService.loadUserByUsername(username);
+        SecurityContext ctx = SecurityContextHolder.createEmptyContext();
+        SecurityContextHolder.setContext(ctx);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-	        if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
-	            String refreshedToken = tokenUtils.refreshToken(token);
-	            int expiresIn = tokenUtils.getExpiredIn();
+        User user = (User) authentication.getPrincipal();
+        String jwt = tokenUtils.generateToken(user.getUsername());
+        int expiresIn = tokenUtils.getExpiredIn();
 
-	            return ResponseEntity.ok(new UserTokenStateDTO(UserMapper.MapToDTO(user), refreshedToken, expiresIn));
-	        } else {
-	            UserTokenStateDTO userTokenState = new UserTokenStateDTO();
-	            return ResponseEntity.badRequest().body(userTokenState);
-	        }
-	    }
+        return ResponseEntity.ok(new UserTokenStateDTO(UserMapper.MapToDTO(user), jwt, expiresIn));
+    }
+
+ 
+    @PostMapping(value = "/refresh")
+    public ResponseEntity<UserTokenStateDTO> refreshAuthenticationToken(HttpServletRequest request) {
+
+        String token = tokenUtils.getToken(request);
+        String username = this.tokenUtils.getUsernameFromToken(token);
+        User user = (User) this.userDetailsService.loadUserByUsername(username);
+
+        if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
+            String refreshedToken = tokenUtils.refreshToken(token);
+            int expiresIn = tokenUtils.getExpiredIn();
+
+            return ResponseEntity.ok(new UserTokenStateDTO(UserMapper.MapToDTO(user), refreshedToken, expiresIn));
+        } else {
+            UserTokenStateDTO userTokenState = new UserTokenStateDTO();
+            return ResponseEntity.badRequest().body(userTokenState);
+        }
+    }
 }

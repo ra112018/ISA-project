@@ -2,11 +2,11 @@ package com.example.projectIsa.users.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.projectIsa.users.model.User;
 
+import com.example.projectIsa.users.model.Authority;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface AuthorityRepository extends JpaRepository<Authority,Integer>{
 
-	User findByEmail(String username);
+	Authority findByName(String name);
 }

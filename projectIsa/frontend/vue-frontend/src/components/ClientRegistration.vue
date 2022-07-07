@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import ClientRegistrationService from '../services/ClientRegistrationService'
+import axios from 'axios'
 
 export default {
     name : 'ClientRegistration',
@@ -77,9 +77,6 @@ export default {
        }
     },
     methods: {
-        registerClient(client){
-            ClientRegistrationService.registerClient(client);
-        },
         formSubmit(e) {
         e.preventDefault();
         this.errors = null;
@@ -138,7 +135,7 @@ export default {
       			
       			alert("Salje se!")
                 console.log(this.client);
-                this.registerClient(this.client)
+                axios.post('http://localhost:8080/registration-client/registration', this.client)
     			
       		}    
         },

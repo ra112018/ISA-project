@@ -20,20 +20,17 @@
 </template>
 
 <script>
-import LoginService from '../services/LoginService'
+import axios from 'axios'
 
 export default {
     name : 'LoginUser',
     data() {
        return {
 	        email : null,
-	        password :null
+	        password : null
        }
     },
     methods: {
-        login(email,password){
-            LoginService.login(email,password);
-        },
         formSubmit(e) {
         e.preventDefault();
         this.errors = null;			
@@ -42,9 +39,19 @@ export default {
 				alert("Email is invalid!")
 				e.preventDefault();
       		}else {     			
-                console.log(this.email, this.password);
-                //this.login(this.email, this.password);	
-                this.$router.push({path: '/client-home-page'}); 	
+                var data = {
+                    username: this.email,
+                    password: this.password
+                }
+                
+                axios.post('http://localhost:8080/auth/login', data)
+                .then(response => {
+                    console.log(response)
+                    if(response.data.user.role == "Client"){
+                        this.$router.push({path: '/client-home-page'});
+                    }
+                })	
+ 	
       		}    
         },
 	    Email: function(value){

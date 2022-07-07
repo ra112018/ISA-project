@@ -15,6 +15,7 @@ public class ClientMapper {
 		client.setEmail(clientDto.getEmail());
 		client.setPassword(clientDto.getPassword());
 		client.setPhoneNumber(clientDto.getPhoneNumber());
+		client.setDeleted(false);
 
 		
 		Address address = new Address();
