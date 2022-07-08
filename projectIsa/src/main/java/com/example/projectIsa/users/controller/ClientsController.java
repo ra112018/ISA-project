@@ -7,16 +7,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.ClientDTO;
+import com.example.projectIsa.users.mapper.ClientMapper;
+import com.example.projectIsa.users.model.Client;
 import com.example.projectIsa.users.service.IClientService;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*",origins="*")
-@RequestMapping(value = "/registration-client")
+@RequestMapping(value = "/client")
 public class ClientsController {
 	
 	private final IClientService clientService;
@@ -36,5 +39,10 @@ public class ClientsController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@PutMapping("/activateAccount")
+    public Client activateAccount(@RequestBody String token){
+        return clientService.activateAccount(token);
+    }
 
 }

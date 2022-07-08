@@ -46,17 +46,35 @@ export default {
                 
                 axios.post('http://localhost:8080/auth/login', data)
                 .then(response => {
-                    console.log(response)
                     if(response.data.user.role == "Client"){
                         this.$router.push({path: '/client-home-page'});
                     }
                 })	
+                .catch(error => {
+                switch (error.response.status) {
+                    case 401:
+                        alert("Bad credentials or you haven't activated your account yet!")  
+                        break;
+                    default:
+                        console.log('some other error'); 
+                        break;
+                    }
+                });
  	
       		}    
         },
 	    Email: function(value){
             return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
         },
+    },
+    mounted(){
+        const token = this.$route.params.token;
+        if (token) {
+            axios.put('http://localhost:8080/client/activateAccount', token)
+            .then(
+                    this.$router.push({path: '/login'})
+                )
+        }
     },
     created() {
         

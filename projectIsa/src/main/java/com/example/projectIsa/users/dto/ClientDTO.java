@@ -20,6 +20,33 @@ public class ClientDTO {
 	
 	private Boolean deleted;
 	
+	private boolean enabled;
+	
+	private String role;
+	
+    private String username;
+	
+	
+	public ClientDTO() {
+		super();
+	}
+
+	public ClientDTO(Integer id, String name, String surname, String email, String password, String phoneNumber,
+			Address address, Boolean deleted, boolean enabled, String role, String username) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.deleted = deleted;
+		this.enabled = enabled;
+		this.role = role;
+		this.username = username;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -82,6 +109,30 @@ public class ClientDTO {
 
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	} 
 	
 	

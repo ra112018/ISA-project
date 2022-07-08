@@ -26,6 +26,10 @@ const router = createRouter({
       component: LoginUser,
     },
     {
+      path: "/login/:token?",
+      component: LoginUser,
+    },
+    {
       path: "/client-home-page",
       component: ClientHomePage,
     },

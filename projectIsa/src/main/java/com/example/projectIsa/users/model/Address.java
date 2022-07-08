@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "address")
 public class Address {
@@ -26,6 +28,7 @@ public class Address {
     private String houseNumber;        
     private String postcode; 
     
+    @JsonIgnore
     @OneToOne(mappedBy = "address")
     private User user;
     

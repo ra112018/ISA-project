@@ -52,6 +52,7 @@ public abstract class User implements UserDetails{
 	private String phoneNumber;
 	
 	//https://www.baeldung.com/jpa-one-to-one
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="address_id", referencedColumnName = "id")
 	private Address address;
@@ -65,6 +66,7 @@ public abstract class User implements UserDetails{
 	
 	private boolean enabled;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

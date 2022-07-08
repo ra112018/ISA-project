@@ -29,5 +29,12 @@ public class ClientMapper {
 		
 		return client;
 	}
+	
+	public static ClientDTO MapToDTO(Client client){
+        ClientDTO dto = new ClientDTO(client.getId(),client.getName(),client.getSurname(),client.getEmail(),
+        		client.getPassword(),client.getPhoneNumber(),client.getAddress(),client.getDeleted(),
+        		client.isEnabled(), client.getRole(), client.getUsername());
+        return dto;
+    }
 
 }

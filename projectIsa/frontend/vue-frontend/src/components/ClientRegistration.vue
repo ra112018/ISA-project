@@ -133,9 +133,8 @@ export default {
       			this.address.postcode = this.postcode;
       			this.client.address = this.address;
       			
-      			alert("Salje se!")
-                console.log(this.client);
-                axios.post('http://localhost:8080/registration-client/registration', this.client)
+      			alert("Please check your email to activate account!")
+                axios.post('http://localhost:8080/client/registration', this.client)
     			
       		}    
         },
