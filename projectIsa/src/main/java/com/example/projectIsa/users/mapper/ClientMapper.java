@@ -6,6 +6,8 @@ import com.example.projectIsa.users.model.Client;
 
 public class ClientMapper {
 	
+	public ClientMapper() {}
+	
 	public static Client MapToClient(ClientDTO clientDto) {
 		Client client = new Client();
 		client.setName(clientDto.getName());
@@ -13,6 +15,8 @@ public class ClientMapper {
 		client.setEmail(clientDto.getEmail());
 		client.setPassword(clientDto.getPassword());
 		client.setPhoneNumber(clientDto.getPhoneNumber());
+		client.setDeleted(false);
+
 		
 		Address address = new Address();
 		address.setState(clientDto.getAddress().getState());
@@ -25,5 +29,12 @@ public class ClientMapper {
 		
 		return client;
 	}
+	
+	public static ClientDTO MapToDTO(Client client){
+        ClientDTO dto = new ClientDTO(client.getId(),client.getName(),client.getSurname(),client.getEmail(),
+        		client.getPassword(),client.getPhoneNumber(),client.getAddress(),client.getDeleted(),
+        		client.isEnabled(), client.getRole(), client.getUsername());
+        return dto;
+    }
 
 }

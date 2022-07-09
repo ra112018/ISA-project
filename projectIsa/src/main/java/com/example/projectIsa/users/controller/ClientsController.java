@@ -5,17 +5,21 @@ import java.text.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.ClientDTO;
+import com.example.projectIsa.users.mapper.ClientMapper;
+import com.example.projectIsa.users.model.Client;
 import com.example.projectIsa.users.service.IClientService;
 
 @RestController
-@RequestMapping(value = "/registration-client")
+@CrossOrigin(allowedHeaders = "*",origins="*")
+@RequestMapping(value = "/client")
 public class ClientsController {
 	
 	private final IClientService clientService;
@@ -24,17 +28,10 @@ public class ClientsController {
 		this.clientService = clientService;
 	}
 	
-	@GetMapping(value = "/hello")
-	public String hello () {
-		System.out.println("Ovde hello");
-	    return "Hello";
-	}
 	
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> registerClient(@RequestBody ClientDTO clientDto) throws ParseException {
 		try {
-			System.out.println("Ovde");
-			System.out.println(clientDto);
 			clientService.registerClient(clientDto);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -42,5 +39,10 @@ public class ClientsController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@PutMapping("/activateAccount")
+    public Client activateAccount(@RequestBody String token){
+        return clientService.activateAccount(token);
+    }
 
 }

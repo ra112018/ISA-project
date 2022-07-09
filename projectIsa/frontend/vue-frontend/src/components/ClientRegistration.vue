@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import ClientRegistrationService from '../services/ClientRegistrationService'
+import axios from 'axios'
 
 export default {
     name : 'ClientRegistration',
@@ -73,17 +73,10 @@ export default {
             street : null,
             houseNumber : null,
             postcode : null,
-            showErrorMessage : false,
-            nesto : null
+            showErrorMessage : false
        }
     },
     methods: {
-        getRegist(){
-            ClientRegistrationService.getRegist().then((response) => {
-                this.nesto = response.data;
-                console.log(this.nesto);
-            });
-        },
         formSubmit(e) {
         e.preventDefault();
         this.errors = null;
@@ -140,8 +133,8 @@ export default {
       			this.address.postcode = this.postcode;
       			this.client.address = this.address;
       			
-      			alert("Salje se!")
-                this.getRegist()
+      			alert("Please check your email to activate account!")
+                axios.post('http://localhost:8080/client/registration', this.client)
     			
       		}    
         },

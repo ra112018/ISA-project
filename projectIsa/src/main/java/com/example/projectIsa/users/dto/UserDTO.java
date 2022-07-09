@@ -2,8 +2,8 @@ package com.example.projectIsa.users.dto;
 
 import com.example.projectIsa.users.model.Address;
 
-public class ClientDTO {
-	
+public class UserDTO {
+
 	private Integer id;
 	
 	private String name;
@@ -20,19 +20,15 @@ public class ClientDTO {
 	
 	private Boolean deleted;
 	
-	private boolean enabled;
-	
 	private String role;
 	
-    private String username;
 	
 	
-	public ClientDTO() {
-		super();
-	}
+	public UserDTO() {}
+	
 
-	public ClientDTO(Integer id, String name, String surname, String email, String password, String phoneNumber,
-			Address address, Boolean deleted, boolean enabled, String role, String username) {
+	public UserDTO(Integer id, String name, String surname, String email, String password, String phoneNumber,
+			Address address, Boolean deleted, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -42,9 +38,7 @@ public class ClientDTO {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.deleted = deleted;
-		this.enabled = enabled;
 		this.role = role;
-		this.username = username;
 	}
 
 	public Integer getId() {
@@ -111,14 +105,6 @@ public class ClientDTO {
 		this.deleted = deleted;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	public String getRole() {
 		return role;
 	}
@@ -126,15 +112,6 @@ public class ClientDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	} 
 	
 	
-
 }
