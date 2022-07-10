@@ -12,6 +12,9 @@ class AdminService {
     approveRegistrationRequest(body){
         return axios.put(registration_url + '/acceptRegistrationRequest', body);
     }
+    denyRegistrationRequest(body){
+        return axios.put(registration_url + '/denyRegistrationRequest', body);
+    }
 }
 
 export default new AdminService()

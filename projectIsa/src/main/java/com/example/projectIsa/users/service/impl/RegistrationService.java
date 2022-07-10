@@ -77,11 +77,13 @@ public class RegistrationService implements IRegistrationService {
 	}
 
 	@Override
-	public void denyRegistrationRequest(String email, String role) {
-		if(role.equals("FishingInstructor")) {
-			FishingInstructor instructor = instructorRepository.findOneByEmail(email);
+	public void denyRegistrationRequest(RegistrationRequestDTO registrationRequestDTO) {
+		if(registrationRequestDTO.getRole().equals("FishingInstructor")) {
+			FishingInstructor instructor = instructorRepository.findOneByEmail(registrationRequestDTO.getEmail());
 			instructor.setAllowLogin(AllowedLogin.Rejected);
-			emailService.sendDeniedRegistrationEmail(email, instructor.getName(), instructor.getSurname());
+			instructor.setEnabled(false);
+			instructorRepository.save(instructor);
+			emailService.sendDeniedRegistrationEmail(instructor.getEmail(), instructor.getName(), instructor.getSurname(), registrationRequestDTO.getExplanation());
 			
 		}		
 	}

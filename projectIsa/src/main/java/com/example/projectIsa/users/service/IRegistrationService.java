@@ -14,5 +14,5 @@ public interface IRegistrationService {
 
 	void acceptRegistrationRequest(String email, String role);
 
-	void denyRegistrationRequest(String email, String role);
+	void denyRegistrationRequest(RegistrationRequestDTO registrationRequestDTO);
 }

@@ -60,8 +60,8 @@ public class RegistrationController {
 	}
 
 	@PutMapping("/denyRegistrationRequest")
-	public void denyRegistrationRequest(@RequestBody String email, String role){
-		registrationService.denyRegistrationRequest(email, role);
+	public void denyRegistrationRequest(@RequestBody RegistrationRequestDTO requestDTO){
+		registrationService.denyRegistrationRequest(requestDTO);
 	}
 
 }

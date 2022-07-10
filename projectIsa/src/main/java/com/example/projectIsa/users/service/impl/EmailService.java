@@ -43,11 +43,11 @@ public class EmailService implements IEmailService{
 		
 	}
 
-	public void sendDeniedRegistrationEmail(String email, String name, String surname) {
+	public void sendDeniedRegistrationEmail(String email, String name, String surname, String explanation) {
 		String title = "Registration denied!";
 
         Context context = new Context();
-        context.setVariable("name", String.format("%s %s", name, surname));
+        context.setVariable("name", String.format("%s %s %s", name, surname, explanation));
         emailContext.send("firma4validation@gmail.com", title, "registrationDenied", context);
 		
 	}

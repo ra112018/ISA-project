@@ -23,7 +23,8 @@
             <td>{{request.surname}}</td>
             <td>{{request.role}}</td>
             <td>{{request.explanation}}</td>
-            <td><button class="dugme" @Click="approve(request)" id="yes">Yes</button><button @Click="deny(request.email, request.role)" class="dugme" id="no">No</button></td>
+            <td><button class="dugme" @Click="approve(request)" id="yes">Yes</button><button @Click="deny(request, explanation[request])" class="dugme" id="no">No</button></td>
+            <td>because of <input v-model='explanation[request]'></td>
             </tr>
         </tbody>
     </table>
@@ -40,7 +41,7 @@ export default {
        return {
         requests:[],
         showErrorMessage : false,
-       
+        explanation :[]
        }
     },
     methods: {
@@ -55,13 +56,13 @@ export default {
         AdminService.approveRegistrationRequest(body).then
             alert("Odobreno!")
        },
-       deny(request){
+       deny(request, explanation){
         var body = {
             email: request.email,
             role: request.role,
             name: request.name,
             surname: request.surname,
-            explanation: " "
+            explanation: explanation
         }
         AdminService.denyRegistrationRequest(body).then
             alert("Odbijeno!")
@@ -79,10 +80,10 @@ export default {
 
 <style>
 table{
-    max-width:70%;
+    max-width:90%;
 }
 .dugme{
-    width: 35%;
+    width: 40%;
     margin: 3%;
     height: 50%;
     border-radius:10%;
