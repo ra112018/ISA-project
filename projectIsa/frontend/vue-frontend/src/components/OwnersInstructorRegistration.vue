@@ -56,8 +56,7 @@
 </template>
 
 <script>
-import OwnerInstructorRegistrationService from '../services/OwnerInstructorRegistrationService'
-
+import OwnerInstructorRegistrationService from "../services/OwnerInstructorRegistrationService.js"
 export default {
     name : 'OwnerInstructorRegistration',
     data() {
@@ -76,7 +75,8 @@ export default {
             role: null,
             explanation: null,
             showErrorMessage : false,
-            nesto : null
+            nesto : null,
+
        }
     },
     methods: {

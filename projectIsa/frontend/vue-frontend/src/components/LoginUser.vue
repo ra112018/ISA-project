@@ -47,11 +47,25 @@ export default {
                 axios.post('http://localhost:8080/auth/login', data)
                 .then(response => {
                     if(response.data.user.role == "Client"){
+                        localStorage.setItem('role','client')
                         this.$router.push({path: '/client-home-page'});
+                    }
+                    else if(response.data.user.role == "FishingInstructor"){
+                        localStorage.setItem('role','FishingInstructor')
+                        this.$router.push({path: '/instructor-home-page'});
+                    }
+                    else if(response.data.user.role == "Administrator"){
+                        localStorage.setItem('role','Administrator')
+                        this.$router.push({path: '/admin-home-page'});
                     }
                 })	
                 .catch(error => {
+                console.log(error.response)
+                alert(error.response.data)
                 switch (error.response.status) {
+                    case 400:
+                        alert("Bad credentials or you haven't activated your account yet!")  
+                        break;
                     case 401:
                         alert("Bad credentials or you haven't activated your account yet!")  
                         break;

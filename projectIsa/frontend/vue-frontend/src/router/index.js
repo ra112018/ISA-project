@@ -3,12 +3,13 @@ import LandingPage from "../components/LandingPage.vue";
 import ClientRegistration from "../components/ClientRegistration.vue";
 import OwnersInstructorRegistration from "../components/OwnersInstructorRegistration.vue";
 import RegistrationChoice from "../components/RegistrationChoice.vue";
-import LoginPage from "../components/LoginPage.vue";
 import AdminPage from "../components/AdminPage.vue";
 import RegistrationRequests from "../components/RegistrationRequests.vue";
 
 import LoginUser from "../components/LoginUser.vue";
 import ClientHomePage from "../components/ClientHomePage.vue";
+import InstructorHomePage from "../components/InstructorHomePage.vue";
+
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -31,12 +32,14 @@ const router = createRouter({
       component: OwnersInstructorRegistration,
     },
     {
-      path: "/admin",
+      path: "/admin-home-page",
       component: AdminPage,
     },
     {
       path: "/registration-requests",
       component: RegistrationRequests,
+    },
+    {
       path: "/login",
       component: LoginUser,
     },
@@ -48,6 +51,11 @@ const router = createRouter({
       path: "/client-home-page",
       component: ClientHomePage,
     },
+    {
+      path: "/instructor-home-page",
+      component: InstructorHomePage,
+    },
   ],
 });
+
 export default router;

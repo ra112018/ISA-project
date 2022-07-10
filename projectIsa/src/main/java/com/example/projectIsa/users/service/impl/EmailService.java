@@ -33,4 +33,22 @@ public class EmailService implements IEmailService{
         emailContext.send("firma4validation@gmail.com", title, "clientAccountActivation", context);
 		
 	}
+
+	public void sendAllowedRegistrationEmail(String email, String name, String surname) {
+		String title = "Registration approved!";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", name, surname));
+        emailContext.send("firma4validation@gmail.com", title, "registrationApproved", context);
+		
+	}
+
+	public void sendDeniedRegistrationEmail(String email, String name, String surname) {
+		String title = "Registration denied!";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", name, surname));
+        emailContext.send("firma4validation@gmail.com", title, "registrationDenied", context);
+		
+	}
 }

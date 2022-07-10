@@ -8,7 +8,11 @@ import com.example.projectIsa.users.model.FishingInstructor;
 
 public interface IRegistrationService {
 
-	FishingInstructor registerInstructor(OwnerDTO ownerDto);
+	FishingInstructor registerInstructor(OwnerDTO ownerDto) throws Exception;
 
 	List<RegistrationRequestDTO> getRegistrationRequests();
+
+	void acceptRegistrationRequest(String email, String role);
+
+	void denyRegistrationRequest(String email, String role);
 }

@@ -66,6 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
                 .antMatchers("/client/registration").permitAll()
                 .antMatchers("/client/activateAccount").permitAll()
+                .antMatchers("/registration-owner-instructor/**").permitAll()
+
 
                 .anyRequest().authenticated().and()
 
@@ -82,6 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
+                "/**/*.css", "/**/*.js");
+        web.ignoring().antMatchers(HttpMethod.PUT, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
                 "/**/*.css", "/**/*.js");
     }
 

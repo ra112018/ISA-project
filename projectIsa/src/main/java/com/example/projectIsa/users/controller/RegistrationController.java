@@ -6,12 +6,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.OwnerDTO;
+import com.example.projectIsa.users.dto.RegistrationRequestDTO;
 import com.example.projectIsa.users.service.IRegistrationService;
 import com.example.projectIsa.users.service.IUserService;
 
@@ -29,25 +32,16 @@ public class RegistrationController {
 
 	}
 	
-	@GetMapping(value = "/hello")
-	public String hello () {
-		System.out.println("Ovde hello");
-	    return "Hello";
-	}
 	
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?>  registrationOwner(@RequestBody OwnerDTO ownerDto) throws ParseException {
+	public ResponseEntity<?>  registrationOwner(@RequestBody OwnerDTO ownerDto) throws Exception {
 		try {
-			if(!userService.checkUniqueUsername(ownerDto.getEmail())) {
-				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
-			}
 			registrationService.registerInstructor(ownerDto);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/requests")
@@ -58,6 +52,16 @@ public class RegistrationController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PutMapping(value = "/acceptRegistrationRequest")
+	public void acceptRegistrationRequest(@RequestBody RegistrationRequestDTO requestDTO){
+		registrationService.acceptRegistrationRequest(requestDTO.getEmail(), requestDTO.getRole());
+	}
+
+	@PutMapping("/denyRegistrationRequest")
+	public void denyRegistrationRequest(@RequestBody String email, String role){
+		registrationService.denyRegistrationRequest(email, role);
 	}
 
 }

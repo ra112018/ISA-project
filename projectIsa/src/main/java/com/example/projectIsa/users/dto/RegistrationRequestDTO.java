@@ -8,6 +8,10 @@ public class RegistrationRequestDTO {
 	String role;
 	String explanation;
 
+	public RegistrationRequestDTO() {
+		super();
+	}
+
 	public RegistrationRequestDTO(String email, String name, String surname, String role, String explanation) {
 		// TODO Auto-generated constructor stub
 		this.email = email;

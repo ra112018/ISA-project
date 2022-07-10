@@ -23,14 +23,14 @@ public class UsersController {
 		this.userService = clientService;
 	}
 	
-	@PostMapping(value = "/login", consumes =  MediaType.APPLICATION_JSON_VALUE)
+	/*@PostMapping(value = "/login", consumes =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
         try{
             return new ResponseEntity(userService.login(userLoginDTO), HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-    }
+    }*/
 	
 
 }

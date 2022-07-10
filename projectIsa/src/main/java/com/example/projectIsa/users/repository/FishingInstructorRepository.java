@@ -14,7 +14,7 @@ public interface FishingInstructorRepository extends JpaRepository<FishingInstru
 
 	FishingInstructor findOneByEmail(String email);
 	
-    @Query(value = "SELECT c FROM FishingInstructor c WHERE c.allowLogin = 1") //valjda ceka admina ali proveriti
+    @Query(value = "SELECT c FROM FishingInstructor c WHERE c.allowLogin=1") //valjda ceka admina ali proveriti
 	List<FishingInstructor> findAllWhoRequestedRegistration();
 	
 }

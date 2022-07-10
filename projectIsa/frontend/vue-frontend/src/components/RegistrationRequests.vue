@@ -1,4 +1,5 @@
 <template>
+    <div>
       <h1>Requests</h1>
       <table class="table">
         <thead>
@@ -22,10 +23,11 @@
             <td>{{request.surname}}</td>
             <td>{{request.role}}</td>
             <td>{{request.explanation}}</td>
-            <td><button class="dugme" id="yes">Yes</button><button class="dugme" id="no">No</button></td>
+            <td><button class="dugme" @Click="approve(request)" id="yes">Yes</button><button @Click="deny(request.email, request.role)" class="dugme" id="no">No</button></td>
             </tr>
         </tbody>
     </table>
+    </div>
 </template>
 
 <script>
@@ -42,7 +44,28 @@ export default {
        }
     },
     methods: {
-       
+       approve(request){
+        var body = {
+            email: request.email,
+            role: request.role,
+            name: request.name,
+            surname: request.surname,
+            explanation: " "
+        }
+        AdminService.approveRegistrationRequest(body).then
+            alert("Odobreno!")
+       },
+       deny(request){
+        var body = {
+            email: request.email,
+            role: request.role,
+            name: request.name,
+            surname: request.surname,
+            explanation: " "
+        }
+        AdminService.denyRegistrationRequest(body).then
+            alert("Odbijeno!")
+       }
     },
     created() {
         this.requests = AdminService.getRegistrationRequests().then((res=>{

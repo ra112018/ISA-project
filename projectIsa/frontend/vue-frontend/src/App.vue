@@ -20,8 +20,17 @@
 export default {
   name: 'App',
   components: {
-
-  }
+  },
+  data() {
+    return {
+    }
+  },
+  methods:{
+    
+  
+    },
+  mounted(){ 
+    },
 }
 </script>
 
@@ -39,4 +48,5 @@ export default {
   padding-left: 20px;
   padding-right: 20px;
 }
+ 
 </style>
