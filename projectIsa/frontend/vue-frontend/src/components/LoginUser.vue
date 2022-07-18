@@ -66,8 +66,6 @@ export default {
                     }
                 })	
                 .catch(error => {
-                console.log(error.response)
-                alert(error.response.data)
                 switch (error.response.status) {
                     case 400:
                         alert("Bad credentials or you haven't activated your account yet!")  

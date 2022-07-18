@@ -44,8 +44,35 @@
             
             <button type="submit" class="btn btn-primary">Edit</button>
         </form>
+        
     </div>
-    </div>   
+    <button type="submit" v-on:click="turnChangePassword" v-if="changePasswordMode ===false" class="btn btn-primary btn-change">Change password</button>
+    </div>  
+
+    <div v-if="changePasswordMode ===true" align="center">
+        <h1>Change password</h1> 
+
+        <div class="d-flex justify-content-around">
+        <form @submit="formSubmitChangePassword">
+            <div class="w-50 m-3">
+                <label for="password" class="form-label">Old password:</label>
+                <input type="password" class="form-control text-center" id="oldPassword" placeholder="Enter your old password" name="oldPassword" v-model="oldPassword" required>
+            </div>
+            <div class="w-50 m-3">
+                <label for="password" class="form-label">New password:</label>
+                <input type="password" class="form-control text-center" id="password" placeholder="Enter your new password" name="password" v-model="password" required>
+            </div>
+            <div class="w-50 m-3 end">
+                <label for="repeatPassword" class="form-label">Repeat new password:</label>
+                <input type="password" class="form-control text-center" id="repeatPassword" placeholder="Repeat your password" name="repeatPassword" v-model="repeatPassword" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Change password</button>
+
+        </form>
+    </div>
+
+    </div> 
 </template>
 
 <script>
@@ -70,7 +97,10 @@ export default {
             street : null,
             houseNumber : null,
             postcode : null,
-            showErrorMessage : false
+            showErrorMessage : false,
+            changePasswordMode : false,
+            oldPassword : null,
+            repeatPassword : null
        }
     },
     methods: {
@@ -129,7 +159,6 @@ export default {
                     this.name = response.data.name;
                     this.surname = response.data.surname;
                     this.email = response.data.email;
-                    //this.password = response.data.password;
                     this.phoneNumber = response.data.phoneNumber;
                     this.state = response.data.address.state;
                     this.city = response.data.address.city;
@@ -149,6 +178,33 @@ export default {
         Number: function (value) {
             return /^[0-9]+$/.test(value);
         },
+        turnChangePassword() {
+            this.changePasswordMode = true;
+        },
+        formSubmitChangePassword(e) {
+        e.preventDefault();
+        this.errors = null;
+            if(this.repeatPassword.trim() != this.password.trim()){
+                this.showErrorMessage = true;
+				alert("New password and new repeated password must be the same!")
+				e.preventDefault();
+      		}else {
+                const token = localStorage.getItem('token');
+                const decodedToken = VueJwtDecode.decode(token);
+                var username = decodedToken.sub;
+
+      			this.changePassword = {}
+      			this.changePassword.oldPassword = this.oldPassword;
+                this.changePassword.newPassword = this.password;
+                this.changePassword.username = username;
+      			
+                axios.put('http://localhost:8080/client/changePassword', this.changePassword)
+                .then(
+                    alert("Password successfully changed!")
+                )
+    			
+      		}    
+        },
     },
     mounted(){
         const token = localStorage.getItem('token');
@@ -159,7 +215,6 @@ export default {
             this.name = response.data.name;
             this.surname = response.data.surname;
             this.email = response.data.email;
-            //this.password = response.data.password;
             this.phoneNumber = response.data.phoneNumber;
             this.state = response.data.address.state;
             this.city = response.data.address.city;
@@ -191,11 +246,16 @@ form {
 }
 
 button {
-    width: 150px;
+    width: 200px;
 }
 
 .p-5 {
   padding: 300px;
+}
+
+.btn-change {
+    margin-bottom: 5%;
+    margin-top: -3%;
 }
 
 </style>

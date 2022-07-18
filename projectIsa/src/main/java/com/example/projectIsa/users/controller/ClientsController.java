@@ -2,6 +2,7 @@ package com.example.projectIsa.users.controller;
 
 import java.text.ParseException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.projectIsa.users.dto.ChangePasswordDTO;
 import com.example.projectIsa.users.dto.ClientDTO;
 import com.example.projectIsa.users.mapper.ClientMapper;
 import com.example.projectIsa.users.model.Client;
-import com.example.projectIsa.users.security.ClientAuthorization;
 import com.example.projectIsa.users.service.IClientService;
+import com.example.projectIsa.users.service.impl.CustomUserDetailsService;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*",origins="*")
@@ -27,6 +28,9 @@ import com.example.projectIsa.users.service.IClientService;
 public class ClientsController {
 	
 	private final IClientService clientService;
+	
+	@Autowired
+    private CustomUserDetailsService userDetailsService;
 	
 	public ClientsController(IClientService clientService) {
 		this.clientService = clientService;
@@ -52,7 +56,6 @@ public class ClientsController {
 	//@ClientAuthorization
     @GetMapping("/getById/{id}")
     public ClientDTO getById(@PathVariable int id){
-    	System.out.println(id);
         return ClientMapper.MapToDTO(clientService.findById(id));
     }
     
@@ -66,6 +69,12 @@ public class ClientsController {
             e.printStackTrace();
         }
         return clientDTO;
+    }
+    
+    //@ClientAuthorization
+    @PutMapping("/changePassword")
+    public boolean changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
+    	return userDetailsService.changePassword(changePasswordDTO);
     }
 
 }

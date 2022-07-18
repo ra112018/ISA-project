@@ -3,12 +3,16 @@ package com.example.projectIsa.users.service.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.projectIsa.users.dto.ChangePasswordDTO;
 import com.example.projectIsa.users.model.User;
 import com.example.projectIsa.users.repository.UserRepository;
 
@@ -34,6 +38,14 @@ public class CustomUserDetailsService implements UserDetailsService{
         } else {
             return user;
         }
+	}
+
+	public boolean changePassword(ChangePasswordDTO changePasswordDTO) {
+        User user = (User) loadUserByUsername(changePasswordDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+        userRepository.save(user);
+        return true;
+		
 	}
 
 }
