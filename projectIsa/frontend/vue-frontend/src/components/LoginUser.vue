@@ -1,13 +1,14 @@
 <template>
-    <div>
+    <div align="center">
+        <NavigationBar />
         <h2>Login</h2>  
         <div class="d-flex flex-column justify-content-center align-items-center">   
             <form @submit="formSubmit"> 
-                <div class="mb-3 mt-3">
+                <div class="w-50 m-3">
                     <label for="email" class="form-label">Email:</label>
                     <input type="email" class="form-control text-center" id="email" placeholder="Enter your email" name="email" v-model="email" required>
                 </div>   
-                <div class="mb-3">
+                <div class="w-50 m-3">
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" class="form-control text-center" id="password" placeholder="Enter your password" name="password" v-model="password" required>
                 </div> 
@@ -20,10 +21,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import NavigationBar from "../components/NavigationBar.vue";
 
 export default {
     name : 'LoginUser',
+    components: {
+    NavigationBar
+    },
     data() {
        return {
 	        email : null,
@@ -47,7 +52,7 @@ export default {
                 axios.post('http://localhost:8080/auth/login', data)
                 .then(response => {
                     if(response.data.user.role == "Client"){
-                        localStorage.setItem('role','client')
+                        localStorage.setItem('role','Client')
                         this.$router.push({path: '/client-home-page'});
                     }
                     else if(response.data.user.role == "FishingInstructor"){
@@ -114,5 +119,6 @@ form {
 button {
     width: 150px;
 }
+
 
 </style>

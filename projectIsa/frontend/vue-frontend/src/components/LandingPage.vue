@@ -1,5 +1,6 @@
 <template>
-  <div>     
+  <div>   
+    <NavigationBar />  
     <h1 class="display-2 text-center mt-3 mb-4">Welcome to our booking app!</h1>
 
       <!-- Carousel -->
@@ -35,6 +36,28 @@
       </div>
   </div>   
 </template>
+
+<script>
+
+import NavigationBar from "../components/NavigationBar.vue"; 
+
+export default {
+  name: 'LandingPage',
+  components: {
+    NavigationBar
+  },
+  data() {
+    return {
+    }
+  },
+  methods:{
+    
+  
+    },
+  mounted(){ 
+    },
+}
+</script>
 
 <style>
 

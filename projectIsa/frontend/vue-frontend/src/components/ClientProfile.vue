@@ -1,9 +1,9 @@
 <template>
-    <div align="center">
     <NavigationBar />
-    <h1>Registration as client</h1>
+    <div align="center">
+    <h1>My profile</h1>
      
-    <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex justify-content-around">
         <form @submit="formSubmit">
             <div class="w-50 m-3">
                 <label for="name" class="form-label">Name:</label>
@@ -57,11 +57,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import NavigationBar from "../components/NavigationBar.vue"; 
 
 export default {
-    name : 'ClientRegistration',
+    name : 'ClientProfile',
     components: {
         NavigationBar
     },
@@ -138,8 +137,6 @@ export default {
       			this.address.postcode = this.postcode;
       			this.client.address = this.address;
       			
-      			alert("Please check your email to activate account!")
-                axios.post('http://localhost:8080/client/registration', this.client)
     			
       		}    
         },
@@ -171,11 +168,15 @@ form {
 }
 
 .end {
-    padding-bottom: 10%;
+    padding-bottom: 5%;
 }
 
 button {
     width: 150px;
+}
+
+.p-5 {
+  padding: 300px;
 }
 
 </style>

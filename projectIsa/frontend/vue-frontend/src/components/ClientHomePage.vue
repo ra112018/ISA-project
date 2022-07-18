@@ -1,5 +1,6 @@
 <template>
   <div>     
+    <NavigationBar />
     <h1 class="display-2 text-center mt-3 mb-4">Welcome to your home page!</h1>
 
       <!-- Carousel -->
@@ -38,8 +39,13 @@
 
 <script>
 
+import NavigationBar from "../components/NavigationBar.vue";
+
 export default {
     name : 'ClientHomePage',
+    components: {
+    NavigationBar
+    },
     data() {
 
     },

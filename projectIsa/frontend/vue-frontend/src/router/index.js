@@ -9,7 +9,7 @@ import RegistrationRequests from "../components/RegistrationRequests.vue";
 import LoginUser from "../components/LoginUser.vue";
 import ClientHomePage from "../components/ClientHomePage.vue";
 import InstructorHomePage from "../components/InstructorHomePage.vue";
-
+import ClientProfile from "../components/ClientProfile.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -54,6 +54,10 @@ const router = createRouter({
     {
       path: "/instructor-home-page",
       component: InstructorHomePage,
+    },
+    {
+      path: "/client-profile",
+      component: ClientProfile,
     },
   ],
 });

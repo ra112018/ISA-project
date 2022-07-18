@@ -1,5 +1,6 @@
 <template>
     <div>
+    <NavigationBar /> 
       <h1>Requests</h1>
       <table class="table">
         <thead>
@@ -33,10 +34,14 @@
 
 <script>
 //import router from '@/router'
-import AdminService from '../services/AdminService'
+import AdminService from '../services/AdminService';
+import NavigationBar from "../components/NavigationBar.vue";
 
 export default {
     name : 'RegistrationRequests',
+    components: {
+        NavigationBar
+    },
     data() {
        return {
         requests:[],
