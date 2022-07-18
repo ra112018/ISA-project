@@ -52,7 +52,8 @@ export default {
                 axios.post('http://localhost:8080/auth/login', data)
                 .then(response => {
                     if(response.data.user.role == "Client"){
-                        localStorage.setItem('role','Client')
+                        localStorage.setItem('role','Client');
+                        localStorage.setItem('token',response.data.accessToken);
                         this.$router.push({path: '/client-home-page'});
                     }
                     else if(response.data.user.role == "FishingInstructor"){

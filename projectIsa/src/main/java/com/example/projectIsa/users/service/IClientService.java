@@ -8,4 +8,8 @@ public interface IClientService {
 	Client registerClient(ClientDTO clientDto);
 	
 	Client activateAccount(String token);
+
+	Client findById(int id);
+
+	ClientDTO updateClient(ClientDTO dto);
 }

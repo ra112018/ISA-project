@@ -72,5 +72,21 @@ public class ClientService implements IClientService{
         
         return clientRepository.save(client);
     }
+	
+	@Override
+    public Client findById(int id) {
+		return clientRepository.getById(id);       
+    }
+	
+	@Override
+    public ClientDTO updateClient(ClientDTO dto) {
+        Client client = clientRepository.findOneByEmail(dto.getEmail());
+        client.setName(dto.getName());
+        client.setSurname(dto.getSurname());
+        client.setPhoneNumber(dto.getPhoneNumber());
+        client.setAddress(dto.getAddress());
+        clientRepository.save(client);
+        return ClientMapper.MapToDTO(client);
+    }
 
 }

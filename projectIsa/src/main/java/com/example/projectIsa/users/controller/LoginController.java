@@ -59,7 +59,7 @@ public class LoginController {
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
 	
 	        User user = (User) authentication.getPrincipal();
-	        String jwt = tokenUtils.generateToken(user.getUsername());
+	        String jwt = tokenUtils.generateToken(user);
 	        int expiresIn = tokenUtils.getExpiredIn();
 	
 	        return ResponseEntity.ok(new UserTokenStateDTO(UserMapper.MapToDTO(user), jwt, expiresIn));

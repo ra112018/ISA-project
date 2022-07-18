@@ -6,15 +6,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectIsa.users.dto.ClientDTO;
 import com.example.projectIsa.users.mapper.ClientMapper;
 import com.example.projectIsa.users.model.Client;
+import com.example.projectIsa.users.security.ClientAuthorization;
 import com.example.projectIsa.users.service.IClientService;
 
 @RestController
@@ -43,6 +47,25 @@ public class ClientsController {
 	@PutMapping("/activateAccount")
     public Client activateAccount(@RequestBody String token){
         return clientService.activateAccount(token);
+    }
+	
+	//@ClientAuthorization
+    @GetMapping("/getById/{id}")
+    public ClientDTO getById(@PathVariable int id){
+    	System.out.println(id);
+        return ClientMapper.MapToDTO(clientService.findById(id));
+    }
+    
+    //@ClientAuthorization
+    @PutMapping("/update")
+    public ClientDTO updateClient(@RequestBody ClientDTO dto) throws ParseException {
+        ClientDTO clientDTO = new ClientDTO();
+        try {
+            clientDTO = clientService.updateClient(dto);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clientDTO;
     }
 
 }

@@ -15,15 +15,7 @@
             </div>
             <div class="w-50 m-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control text-center" id="email" placeholder="Enter your email" name="email" v-model="email" required>
-            </div>
-            <div class="w-50 m-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control text-center" id="password" placeholder="Enter your password" name="password" v-model="password" required>
-            </div>
-            <div class="w-50 m-3">
-                <label for="repeatPassword" class="form-label">Repeat password:</label>
-                <input type="password" class="form-control text-center" id="repeatPassword" placeholder="Repeat your password" name="repeatPassword" v-model="repeatPassword" required>
+                <input type="email" class="form-control text-center" id="email" placeholder="Enter your email" name="email" v-model="email" disabled>
             </div>
             <div class="w-50 m-3">
                 <label for="phoneNumber" class="form-label">Phone number:</label>
@@ -50,7 +42,7 @@
                 <input type="text" class="form-control text-center" id="postcode" placeholder="Enter postcode" name="postcode" v-model="postcode" required>
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Edit</button>
         </form>
     </div>
     </div>   
@@ -58,6 +50,8 @@
 
 <script>
 import NavigationBar from "../components/NavigationBar.vue"; 
+import VueJwtDecode from 'vue-jwt-decode';
+import axios from 'axios';
 
 export default {
     name : 'ClientProfile',
@@ -70,7 +64,6 @@ export default {
 	        surname : null,
 	        email : null,
 	        password :null,
-	        repeatPassword : null,
             phoneNumber : null,
             state : null,
             city : null,
@@ -89,15 +82,7 @@ export default {
 			    e.preventDefault();
 			}else if(!this.Word(this.surname.trim())){
 			    alert("Surname must contain a capital letter and letters only!")
-			    e.preventDefault();
-			}else if(this.repeatPassword.trim() != this.password.trim()){
-                this.showErrorMessage = true;
-				alert("Password and repeated password must be the same!")
-				e.preventDefault();
-      		}else if(!this.Email(this.email.trim())){
-                this.showErrorMessage = true;
-				alert("Email is invalid!")
-				e.preventDefault();
+			    e.preventDefault();			
       		}else if(!this.Number(this.phoneNumber.trim())){
                 this.showErrorMessage = true;
 				alert("Phone number can only contain digits!")
@@ -137,6 +122,21 @@ export default {
       			this.address.postcode = this.postcode;
       			this.client.address = this.address;
       			
+                alert("Profile successfully updated!")
+
+                axios.put('http://localhost:8080/client/update', this.client)
+                .then(response => {
+                    this.name = response.data.name;
+                    this.surname = response.data.surname;
+                    this.email = response.data.email;
+                    //this.password = response.data.password;
+                    this.phoneNumber = response.data.phoneNumber;
+                    this.state = response.data.address.state;
+                    this.city = response.data.address.city;
+                    this.street = response.data.address.street;
+                    this.houseNumber = response.data.address.houseNumber;
+                    this.postcode = response.data.address.postcode;
+                })
     			
       		}    
         },
@@ -149,6 +149,25 @@ export default {
         Number: function (value) {
             return /^[0-9]+$/.test(value);
         },
+    },
+    mounted(){
+        const token = localStorage.getItem('token');
+        const decodedToken = VueJwtDecode.decode(token);
+        var id = decodedToken.id;
+        axios.get('http://localhost:8080/client/getById/' + id)
+        .then(response => {
+            this.name = response.data.name;
+            this.surname = response.data.surname;
+            this.email = response.data.email;
+            //this.password = response.data.password;
+            this.phoneNumber = response.data.phoneNumber;
+            this.state = response.data.address.state;
+            this.city = response.data.address.city;
+            this.street = response.data.address.street;
+            this.houseNumber = response.data.address.houseNumber;
+            this.postcode = response.data.address.postcode;
+        })
+        
     },
     created() {
         
