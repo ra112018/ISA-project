@@ -2,6 +2,15 @@ insert into authority(id, name) values (1, 'ROLE_ADMIN');
 insert into authority(id, name) values (2, 'ROLE_CLIENT');
 insert into authority(id, name) values (3, 'ROLE_INSTRUCTOR');
 
+insert into cottages(id,description,name,address,rules,capacity,type) values 
+(1,'Odlicna vikendica na Kopaoniku za odmor sa porodicom.','Vikendica Anastasija','Njegoseva 8,Kopaonik','Potrebno je dati 50e unaped.',30,'Cottage');
+insert into cottages(id,description,name,address,rules,capacity,type) values 
+(2,'Savrsena vikendica za odmor.','Vikendica Raj','Despotova 14,Zlatibor','Morate dati depozit u iznosu od 60e.',50,'Cottage');
+insert into cottages(id,description,name,address,rules,capacity,type) values 
+(3,'Vikendica vasih snova','Vikendica San','Markova 11,Tara','Nema nikakvih pravila.',10,'Cottage');
+insert into cottages(id,description,name,address,rules,capacity,type) values 
+(4,'Vikendica samo za Vas','Moja vikendica','Markova 20,Tara','Potrebno je dati depozit u iznosu od 70e.',6,'Cottage');
+
 
 --password 123
 insert into users (role,id,deleted,email,name,password,phone_number,surname,enabled) values
@@ -24,3 +33,4 @@ insert into user_authority(user_id,authority_id) values (3,3);
 
 alter sequence user_entity_id_seq restart with 4;
 alter sequence user_address_id_seq restart with 4;
+alter sequence renting_item_id_seq restart with 5;

@@ -34,12 +34,27 @@
           <span class="carousel-control-next-icon"></span>
         </button>
       </div>
-  </div>   
+  </div>  
+
+  <!-- Cottages -->
+  <div>
+    <button type="button" v-on:click="showAllCottages" v-if="cottagesMode === false" class="btn btn-primary btn-change">Show all cottages</button>
+    <div v-if="cottagesMode === true">
+      <div class="cottage-inline" v-for="cottage in cottages" v-bind:key="cottage.name" :name="cottage.name" :address="cottage.address" :description="cottage.description">
+        <div class="cottageView">
+          <h2>{{cottage.name}}</h2>
+          <p>{{cottage.address}}</p>
+          <p>{{cottage.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div> 
 </template>
 
 <script>
 
 import NavigationBar from "../components/NavigationBar.vue"; 
+import axios from 'axios';
 
 export default {
   name: 'LandingPage',
@@ -48,14 +63,25 @@ export default {
   },
   data() {
     return {
+      cottagesMode : false,
+      cottages : [],
     }
   },
   methods:{
-    
+    showAllCottages() {
+      this.cottagesMode = true;
+
+      axios.get('http://localhost:8080/cottage/getAll')
+      .then(response => {
+        this.cottages = response.data;
+        console.log(this.cottages);
+        //prosecna ocena fali
+      })
+    },
   
-    },
+  },
   mounted(){ 
-    },
+  },
 }
 </script>
 
@@ -72,6 +98,26 @@ img {
 
 .carousel {
   margin-bottom: 5%;
+}
+
+.cottageView {
+  width: 360px;
+  height: 200px;
+  border: solid 1px #555;
+  background-color:beige;
+  box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
+  border-radius:25px;    
+  text-align: center;
+}
+
+.cottage-inline {
+  display: inline-block;
+  margin: 2%;
+  vertical-align: middle;
+}
+
+p {
+  font-size: large;
 }
 
 </style>
