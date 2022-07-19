@@ -22,5 +22,5 @@ insert into user_authority(user_id,authority_id) values (1,1);
 insert into user_authority(user_id,authority_id) values (2,2);
 insert into user_authority(user_id,authority_id) values (3,3);
 
-alter sequence user_entity_id_seq restart with 10;
-alter sequence user_address_id_seq restart with 10;
+alter sequence user_entity_id_seq restart with 4;
+alter sequence user_address_id_seq restart with 4;

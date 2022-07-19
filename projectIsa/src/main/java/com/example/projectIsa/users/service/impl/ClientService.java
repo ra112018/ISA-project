@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.projectIsa.users.dto.ClientDTO;
 import com.example.projectIsa.users.mapper.ClientMapper;
+import com.example.projectIsa.users.model.Address;
 import com.example.projectIsa.users.model.Authority;
 import com.example.projectIsa.users.model.Client;
 import com.example.projectIsa.users.model.PasswordToken;
+import com.example.projectIsa.users.repository.AddressRepository;
 import com.example.projectIsa.users.repository.ClientRepository;
 import com.example.projectIsa.users.repository.PasswordTokenRepository;
 import com.example.projectIsa.users.service.IClientService;
@@ -26,16 +28,18 @@ public class ClientService implements IClientService{
 	private final PasswordTokenService passwordTokenService;
 	private final EmailService emailService;
 	private final PasswordTokenRepository passwordTokenRepository;
+	private final AddressRepository addressRepository;
 	
 	@Autowired
 	public ClientService(ClientRepository clientRepository, PasswordEncoder passwordEncoder, AuthorityService authorityService, PasswordTokenService passwordTokenService,
-			EmailService emailService,PasswordTokenRepository passwordTokenRepository) {
+			EmailService emailService,PasswordTokenRepository passwordTokenRepository, AddressRepository addressRepository) {
 		this.clientRepository = clientRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.authorityService = authorityService;
 		this.passwordTokenService = passwordTokenService;
 		this.emailService = emailService;
 		this.passwordTokenRepository = passwordTokenRepository;
+		this.addressRepository = addressRepository;
 	}
 
 	@Override
@@ -80,11 +84,23 @@ public class ClientService implements IClientService{
 	
 	@Override
     public ClientDTO updateClient(ClientDTO dto) {
+		
         Client client = clientRepository.findOneByEmail(dto.getEmail());
         client.setName(dto.getName());
         client.setSurname(dto.getSurname());
         client.setPhoneNumber(dto.getPhoneNumber());
-        client.setAddress(dto.getAddress());
+        
+        Address address = addressRepository.findById(client.getId()).get();
+		address.setState(dto.getAddress().getState());
+		address.setCity(dto.getAddress().getCity());
+		address.setStreet(dto.getAddress().getStreet());
+		address.setHouseNumber(dto.getAddress().getHouseNumber());
+		address.setPostcode(dto.getAddress().getPostcode());
+		
+		addressRepository.save(address);
+		
+		client.setAddress(address);
+		
         clientRepository.save(client);
         return ClientMapper.MapToDTO(client);
     }
