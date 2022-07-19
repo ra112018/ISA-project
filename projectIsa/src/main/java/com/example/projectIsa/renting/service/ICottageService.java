@@ -8,4 +8,6 @@ public interface ICottageService {
 
 	List<Cottage> getAll();
 
+	List<Cottage> search(String searchInput);
+
 }

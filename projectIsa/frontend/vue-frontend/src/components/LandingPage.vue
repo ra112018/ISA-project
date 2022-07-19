@@ -36,10 +36,28 @@
       </div>
   </div>  
 
+  <br>
   <!-- Cottages -->
   <div>
-    <button type="button" v-on:click="showAllCottages" v-if="cottagesMode === false" class="btn btn-primary btn-change">Show all cottages</button>
+    <button type="button" v-on:click="showAllCottages" class="btn btn-primary btn-change">Show all cottages</button>
     <div v-if="cottagesMode === true">
+      <div class="search-inline">
+        <input type="search" v-model="searchInput">
+        <span><button type="button" v-on:click="searchCottages" class="btn btn-primary">Search</button></span>
+
+    	  <label class="sort-text"><b>Criteria</b></label>
+    	
+        <select v-model="sortCriteria" class="sort-inline">
+                <option value="name">Name</option>
+                <option value="address">Address</option>
+        </select>    	
+        <label class="sort-text"><b>Direction</b></label>
+        <select v-model="sortType" class="sort-inline">
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+        </select>
+		    <button v-on:click="sortThis" class="btn btn-primary">Sort</button>    
+      </div><br>
       <div class="cottage-inline" v-for="cottage in cottages" v-bind:key="cottage.name" :name="cottage.name" :address="cottage.address" :description="cottage.description">
         <div class="cottageView">
           <h2>{{cottage.name}}</h2>
@@ -65,6 +83,7 @@ export default {
     return {
       cottagesMode : false,
       cottages : [],
+      searchInput : null,
     }
   },
   methods:{
@@ -74,10 +93,115 @@ export default {
       axios.get('http://localhost:8080/cottage/getAll')
       .then(response => {
         this.cottages = response.data;
+        //prosecna ocena fali
+      })
+    },
+    searchCottages() {
+      axios.get('http://localhost:8080/cottage/search/' + this.searchInput)
+      .then(response => {
+        console.log(response);
+        this.cottages = response.data;
         console.log(this.cottages);
         //prosecna ocena fali
       })
     },
+    //fali sortiranje po oceni
+    sortThis: function(){
+			if(this.sortCriteria != "name" && this.sortCriteria != "address")
+			{
+				alert("You must enter criteria for sorting!");
+			}
+			else if(this.sortType != "descending" && this.sortType != "ascending")
+			{
+				alert("You must enter sort direction!");
+			}
+			else
+			{
+				if(this.sortCriteria == "address")
+				{
+					this.cottages.sort(this.compareAddress)
+				}
+				else if(this.sortCriteria == "name")
+				{
+					this.cottages.sort(this.compareName);
+				}
+				else
+				{
+					//this.cottages.sort(this.compareRatings);
+				}
+										
+			}
+		},
+	  compareName: function(o,t){
+			let first, second;
+			if(this.sortCriteria == "name")
+			{
+				first = o.name;
+				second = t.name;
+			}
+			if(first < second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return -1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else if(first > second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+
+		},
+    compareAddress: function(o,t){
+			let first, second;
+			if(this.sortCriteria == "address")
+			{
+				first = o.address;
+				second = t.address;
+			}
+			if(first < second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return -1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else if(first > second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+
+		},
   
   },
   mounted(){ 
@@ -118,6 +242,29 @@ img {
 
 p {
   font-size: large;
+}
+
+.search-inline {
+  display: flex;
+  margin-left: 4%;
+  height: 40px;
+}
+
+span {
+    margin: 0 20px;
+}
+
+.sort-inline {
+  display: flex;
+  margin-right: 2%;
+  height: 40px;
+  width: 200px;
+}
+
+.sort-text {
+  text-align: center;
+  margin-top: 0.5%;
+  margin-right: 1%;
 }
 
 </style>

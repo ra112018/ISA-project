@@ -1,5 +1,6 @@
 package com.example.projectIsa.renting.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,18 @@ public class CottageService implements ICottageService{
     public List<Cottage> getAll() {
 		return cottageRepository.findAll();
     }
+
+	@Override
+	public List<Cottage> search(String searchInput) {
+		searchInput = searchInput.toLowerCase();
+        List<Cottage> allCottages = cottageRepository.findAll();
+        List<Cottage> searchResults = new ArrayList<>();
+        for (Cottage cottage : allCottages) {
+            if (cottage.getName().toLowerCase().contains(searchInput) || cottage.getDescription().toLowerCase().contains(searchInput) || cottage.getAddress().toLowerCase().contains(searchInput) ) {
+                searchResults.add(cottage);
+            }
+        }
+
+        return searchResults;
+	}
 }
