@@ -73,6 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/registration-owner-instructor/**").permitAll()
                 .antMatchers("/cottage/getAll").permitAll()
                 .antMatchers("/cottage/search/{searchInput}").permitAll()
+                .antMatchers("/boat/getAll").permitAll()
+                .antMatchers("/boat/search/{searchInput}").permitAll()
 
 
                 .anyRequest().authenticated().and()

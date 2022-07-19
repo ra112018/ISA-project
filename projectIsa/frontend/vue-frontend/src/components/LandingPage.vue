@@ -67,6 +67,39 @@
       </div>
     </div>
   </div> 
+
+  <br>
+  <br>
+  <!-- Boats -->
+  <div>
+    <button type="button" v-on:click="showAllBoats" class="btn btn-primary btn-change">Show all boats</button>
+    <div v-if="boatsMode === true">
+      <div class="search-inline">
+        <input type="search" v-model="searchInputBoat">
+        <span><button type="button" v-on:click="searchBoats" class="btn btn-primary">Search</button></span>
+
+    	  <label class="sort-text"><b>Criteria</b></label>
+    	
+        <select v-model="sortCriteriaBoat" class="sort-inline">
+                <option value="name">Name</option>
+                <option value="address">Address</option>
+        </select>    	
+        <label class="sort-text"><b>Direction</b></label>
+        <select v-model="sortTypeBoat" class="sort-inline">
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+        </select>
+		    <button v-on:click="sortThisBoat" class="btn btn-primary">Sort</button>    
+      </div><br>
+      <div class="cottage-inline" v-for="boat in boats" v-bind:key="boat.name" :name="boat.name" :address="boat.address" :description="boat.description">
+        <div class="cottageView">
+          <h2>{{boat.name}}</h2>
+          <p>{{boat.address}}</p>
+          <p>{{boat.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -84,6 +117,9 @@ export default {
       cottagesMode : false,
       cottages : [],
       searchInput : null,
+      boatsMode : false,
+      boats : [],
+      searchInputBoat : null,
     }
   },
   methods:{
@@ -99,9 +135,7 @@ export default {
     searchCottages() {
       axios.get('http://localhost:8080/cottage/search/' + this.searchInput)
       .then(response => {
-        console.log(response);
         this.cottages = response.data;
-        console.log(this.cottages);
         //prosecna ocena fali
       })
     },
@@ -188,6 +222,118 @@ export default {
 			else if(first > second)
 			{
 				if(this.sortType == 'ascending')
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+
+		},
+    showAllBoats() {
+      this.boatsMode = true;
+
+      axios.get('http://localhost:8080/boat/getAll')
+      .then(response => {
+        this.boats = response.data;
+        //prosecna ocena fali i jos neki podaci
+      })
+    },
+    searchBoats() {
+      axios.get('http://localhost:8080/boat/search/' + this.searchInputBoat)
+      .then(response => {
+        this.boats = response.data;
+        //prosecna ocena fali i jos neki podaci
+      })
+    },
+    sortThisBoat: function(){
+			if(this.sortCriteriaBoat != "name" && this.sortCriteriaBoat != "address")
+			{
+				alert("You must enter criteria for sorting!");
+			}
+			else if(this.sortTypeBoat != "descending" && this.sortTypeBoat != "ascending")
+			{
+				alert("You must enter sort direction!");
+			}
+			else
+			{
+				if(this.sortCriteriaBoat == "address")
+				{
+					this.boats.sort(this.compareAddressBoat)
+				}
+				else if(this.sortCriteriaBoat == "name")
+				{
+					this.boats.sort(this.compareNameBoat);
+				}
+				else
+				{
+					//this.boats.sort(this.compareRatingsBoat);
+				}
+										
+			}
+		},
+	  compareNameBoat: function(o,t){
+			let first, second;
+			if(this.sortCriteriaBoat == "name")
+			{
+				first = o.name;
+				second = t.name;
+			}
+			if(first < second)
+			{
+				if(this.sortTypeBoat == 'ascending')
+				{
+					return -1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else if(first > second)
+			{
+				if(this.sortTypeBoat == 'ascending')
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+
+		},
+    compareAddressBoat: function(o,t){
+			let first, second;
+			if(this.sortCriteriaBoat == "address")
+			{
+				first = o.address;
+				second = t.address;
+			}
+			if(first < second)
+			{
+				if(this.sortTypeBoat == 'ascending')
+				{
+					return -1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else if(first > second)
+			{
+				if(this.sortTypeBoat == 'ascending')
 				{
 					return 1;
 				}

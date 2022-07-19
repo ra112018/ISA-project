@@ -35,6 +35,8 @@ public abstract class RentingItem {
     private String type;
     
     private int capacity;
+    
+    private String rules;
          
     
 	public Integer getId() {
@@ -72,6 +74,12 @@ public abstract class RentingItem {
 	}
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}
+	public String getRules() {
+		return rules;
+	}
+	public void setRules(String rules) {
+		this.rules = rules;
 	}
     
     

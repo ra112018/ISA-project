@@ -5,12 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cottages")
-@DiscriminatorValue(value = "Cottage")
-public class Cottage extends RentingItem{
+@Table(name = "boats")
+@DiscriminatorValue(value = "Boat")
+public class Boat extends RentingItem{
 
-	public Cottage() {
+	public Boat() {
 		super();
 	}
-
 }
