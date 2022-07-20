@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import NavigationBar from './NavigationBar.vue'
+import NavigationBar from "../components/NavigationBar.vue";
 
 export default {
     name : 'InstructorHomePage',

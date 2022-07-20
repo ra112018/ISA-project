@@ -1,50 +1,51 @@
 <template>
-    <div>
+    <div align="center">
+    <NavigationBar />
     <h1>Registration as client</h1>
      
     <div class="d-flex flex-column justify-content-center align-items-center">
         <form @submit="formSubmit">
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="name" class="form-label">Name:</label>
                 <input type="text" class="form-control text-center" id="name" placeholder="Enter your name" name="name" v-model="name" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="surname" class="form-label">Surname:</label>
                 <input type="text" class="form-control text-center" id="surname" placeholder="Enter your surname" name="surname" v-model="surname" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control text-center" id="email" placeholder="Enter your email" name="email" v-model="email" required>
             </div>
-            <div class="mb-3">
+            <div class="w-50 m-3">
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control text-center" id="password" placeholder="Enter your password" name="password" v-model="password" required>
             </div>
-            <div class="mb-3">
+            <div class="w-50 m-3">
                 <label for="repeatPassword" class="form-label">Repeat password:</label>
                 <input type="password" class="form-control text-center" id="repeatPassword" placeholder="Repeat your password" name="repeatPassword" v-model="repeatPassword" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="phoneNumber" class="form-label">Phone number:</label>
                 <input type="text" class="form-control text-center" id="phoneNumber" placeholder="Enter your phone number" name="phoneNumber" v-model="phoneNumber" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="state" class="form-label">State:</label>
                 <input type="text" class="form-control text-center" id="state" placeholder="Enter state" name="state" v-model="state" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="city" class="form-label">City:</label>
                 <input type="text" class="form-control text-center" id="city" placeholder="Enter city" name="city" v-model="city" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="street" class="form-label">Street:</label>
                 <input type="text" class="form-control text-center" id="street" placeholder="Enter street" name="street" v-model="street" required>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="w-50 m-3">
                 <label for="houseNumber" class="form-label">House number:</label>
                 <input type="text" class="form-control text-center" id="houseNumber" placeholder="Enter house number" name="houseNumber" v-model="houseNumber" required>
             </div>
-            <div class="mb-3 mt-3 end">
+            <div class="w-50 m-3 end">
                 <label for="postcode" class="form-label">Postcode:</label>
                 <input type="text" class="form-control text-center" id="postcode" placeholder="Enter postcode" name="postcode" v-model="postcode" required>
             </div>
@@ -56,10 +57,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import NavigationBar from "../components/NavigationBar.vue"; 
 
 export default {
     name : 'ClientRegistration',
+    components: {
+        NavigationBar
+    },
     data() {
        return {
             name : null,

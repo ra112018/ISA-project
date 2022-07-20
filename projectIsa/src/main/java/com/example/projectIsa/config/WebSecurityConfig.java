@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -65,8 +64,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
                 .antMatchers("/client/registration").permitAll()
-                .antMatchers("/client/activateAccount").permitAll()
+                .antMatchers("/client/activateAccount").permitAll() 
+                
+                .antMatchers("/client/getById/{id}").permitAll() 
+                .antMatchers("/client/update").permitAll() 
+                .antMatchers("/client/changePassword").permitAll() 
+
                 .antMatchers("/registration-owner-instructor/**").permitAll()
+                .antMatchers("/cottage/getAll").permitAll()
+                .antMatchers("/cottage/search/{searchInput}").permitAll()
+                .antMatchers("/boat/getAll").permitAll()
+                .antMatchers("/boat/search/{searchInput}").permitAll()
+                .antMatchers("/fishingInstructorAdventure/getAll").permitAll()
+                .antMatchers("/fishingInstructorAdventure/search/{searchInput}").permitAll()
 
 
                 .anyRequest().authenticated().and()

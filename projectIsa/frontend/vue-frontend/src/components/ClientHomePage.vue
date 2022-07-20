@@ -1,5 +1,6 @@
 <template>
   <div>     
+    <NavigationBar />
     <h1 class="display-2 text-center mt-3 mb-4">Welcome to your home page!</h1>
 
       <!-- Carousel -->
@@ -38,13 +39,40 @@
 
 <script>
 
+import NavigationBar from "../components/NavigationBar.vue";
+import VueJwtDecode from 'vue-jwt-decode';
+
 export default {
     name : 'ClientHomePage',
+    components: {
+    NavigationBar
+    },
     data() {
 
     },
     methods: {
+      getToken() {
+        const token = localStorage.getItem('token');
+        if (token === null || token === undefined) {
+            alert("Nije dozvoljen pristup");
+            this.$router.push({path: '/'});
+        }else {
+        const decodedToken = VueJwtDecode.decode(token);
+          if(decodedToken.user_role === 'Administrator'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+          }else {
+            if(decodedToken.user_role === 'FishingInstructor'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }
+          }  
+        } 
+      }
        
+    },
+    mounted(){ 
+      this.getToken();
     },
     created() {
         

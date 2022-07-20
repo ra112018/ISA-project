@@ -1,5 +1,6 @@
 <template>
-  <div>     
+  <div>    
+    <NavigationBar /> 
     <h1 class="text-center mt-5 mb-3">Registration</h1>
     <h2 class="text-center mt-3 mb-5">Please choose user role</h2>
 
@@ -11,6 +12,28 @@
     </div>  
   </div>   
 </template>
+
+<script>
+
+import NavigationBar from "../components/NavigationBar.vue"; 
+
+export default {
+  name: 'RegistrationChoice',
+  components: {
+    NavigationBar
+  },
+  data() {
+    return {
+    }
+  },
+  methods:{
+    
+  
+    },
+  mounted(){ 
+    },
+}
+</script>
 
 <style>
 

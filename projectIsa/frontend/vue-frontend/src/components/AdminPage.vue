@@ -1,4 +1,5 @@
 <template>
+      <NavigationBar />
       <div class="navAdmin">
       <nav class="navbar navbar-expand-sm bg-light navbar-light">
             <div class="dropleft">
@@ -15,9 +16,13 @@
 
 <script>
 //import router from '@/router'
+import NavigationBar from "../components/NavigationBar.vue";
 
 export default {
     name : 'AdminPage',
+    components: {
+      NavigationBar
+    },
     data() {
        return {
 

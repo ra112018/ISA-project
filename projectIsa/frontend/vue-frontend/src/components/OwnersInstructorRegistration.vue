@@ -1,5 +1,6 @@
 <template>
     <div>
+    <NavigationBar />
     <h1>Registration as owner or instructor</h1>
      
     <div class="d-flex flex-row m-3 justify-content-left align-items-left">
@@ -56,9 +57,14 @@
 </template>
 
 <script>
-import OwnerInstructorRegistrationService from "../services/OwnerInstructorRegistrationService.js"
+import OwnerInstructorRegistrationService from "../services/OwnerInstructorRegistrationService.js";
+import NavigationBar from "../components/NavigationBar.vue";
+
 export default {
     name : 'OwnerInstructorRegistration',
+    components: {
+        NavigationBar
+    },
     data() {
        return {
             name : null,

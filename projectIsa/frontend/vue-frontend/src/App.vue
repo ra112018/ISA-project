@@ -1,25 +1,15 @@
 <template>
   <div> 
-    <div id="nav">
-      <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <div class="navbar-nav me-auto">
-                <router-link to="/" class="nav-item nav-link">Home</router-link>
-            </div>
-            <div class="navbar-nav ms-auto">
-                <router-link to="/registration-choice" class="nav-item nav-link">Registration</router-link>
-                <router-link to="/login" class="nav-item nav-link">Login</router-link>
-            </div>
-      </nav>
-    </div>
     <router-view />
   </div>
 </template>
 
-<script>
+<script> 
 
 export default {
   name: 'App',
   components: {
+    
   },
   data() {
     return {
@@ -30,6 +20,8 @@ export default {
   
     },
   mounted(){ 
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
     },
 }
 </script>
