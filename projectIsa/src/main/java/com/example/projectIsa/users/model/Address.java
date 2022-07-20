@@ -32,6 +32,10 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private User user;
     
+    @JsonIgnore
+    @OneToOne(mappedBy = "address")
+    private FishingAdventure fishingAdventure;
+    
 	public Address() {}
 
 	

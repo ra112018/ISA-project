@@ -24,3 +24,8 @@ insert into user_authority(user_id,authority_id) values (3,3);
 
 alter sequence user_entity_id_seq restart with 10;
 alter sequence user_address_id_seq restart with 10;
+
+alter sequence equipment_entity_id_seq restart with 10;
+alter sequence term_entity_id_seq restart with 10;
+alter sequence picture_entity_id_seq restart with 10;
+alter sequence adventure_entity_id_seq restart with 10;
