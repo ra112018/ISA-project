@@ -41,7 +41,7 @@ insert into fishing_instructor_adventure(id,name,address,description,rules,capac
 (8,'Pecajte s Vladom','Marka Miljanova 22,Novi Sad','Vlada ima iskustva u pecanju i sa njim cete uzivati u pecanju',
 'Pecanje traje 2 sata.Sve dodatno se dodatno naplacuje po dogovoru.',5,3,'Vlada je iskusni pecaros.','FishingInstructorAdventure');
 insert into fishing_instructor_adventure(id,name,address,description,rules,capacity,fishing_instructor_id,instructor_biography,type) values 
-(9,'Pecanje sa Veljko','Kraljeva 33,Beograd','Veljko vas vodi na nezaboravno pecanje',
+(9,'Pecanje sa Veljkom','Kraljeva 33,Beograd','Veljko vas vodi na nezaboravno pecanje',
 'Pecanje traje 4 sata.',3,4,'Veljko ima 10 godina iskustva u pecanju','FishingInstructorAdventure');
 
 

@@ -205,24 +205,55 @@ export default {
     			
       		}    
         },
+        getToken() {
+        const token = localStorage.getItem('token');
+        if (token === null || token === undefined) {
+            alert("Nije dozvoljen pristup");
+            this.$router.push({path: '/'});
+        }else {
+        const decodedToken = VueJwtDecode.decode(token);
+        console.log(decodedToken);
+          if(decodedToken.user_role === 'Administrator'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+          }else {
+            if(decodedToken.user_role === 'FishingInstructor'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }
+          }  
+        } 
+      }
     },
     mounted(){
         const token = localStorage.getItem('token');
-        const decodedToken = VueJwtDecode.decode(token);
-        var id = decodedToken.id;
-        axios.get('http://localhost:8080/client/getById/' + id)
-        .then(response => {
-            this.name = response.data.name;
-            this.surname = response.data.surname;
-            this.email = response.data.email;
-            this.phoneNumber = response.data.phoneNumber;
-            this.state = response.data.address.state;
-            this.city = response.data.address.city;
-            this.street = response.data.address.street;
-            this.houseNumber = response.data.address.houseNumber;
-            this.postcode = response.data.address.postcode;
-        })
-        
+        if (token === null || token === undefined) {
+            alert("Nije dozvoljen pristup");
+            this.$router.push({path: '/'});
+        }else {
+            const decodedToken = VueJwtDecode.decode(token);
+            if(decodedToken.user_role === 'Administrator'){
+                alert("Nije dozvoljen pristup");
+                this.$router.push({path: '/'});
+            }else if(decodedToken.user_role === 'FishingInstructor'){
+                alert("Nije dozvoljen pristup");
+                this.$router.push({path: '/'});
+            }else {
+                var id = decodedToken.id;
+                axios.get('http://localhost:8080/client/getById/' + id)
+                .then(response => {
+                    this.name = response.data.name;
+                    this.surname = response.data.surname;
+                    this.email = response.data.email;
+                    this.phoneNumber = response.data.phoneNumber;
+                    this.state = response.data.address.state;
+                    this.city = response.data.address.city;
+                    this.street = response.data.address.street;
+                    this.houseNumber = response.data.address.houseNumber;
+                    this.postcode = response.data.address.postcode;
+                })
+            } 
+        }               
     },
     created() {
         

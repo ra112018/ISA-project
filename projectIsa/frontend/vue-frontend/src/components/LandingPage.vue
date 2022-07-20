@@ -39,7 +39,7 @@
   <br>
   <!-- Cottages -->
   <div>
-    <button type="button" v-on:click="showAllCottages" class="btn btn-primary btn-change">Show all cottages</button>
+    <button type="button" v-on:click="showAllCottages" class="btn btn-primary btn-change">View all cottages</button>
     <div v-if="cottagesMode === true">
       <div class="search-inline">
         <input type="search" v-model="searchInput">
@@ -72,7 +72,7 @@
   <br>
   <!-- Boats -->
   <div>
-    <button type="button" v-on:click="showAllBoats" class="btn btn-primary btn-change">Show all boats</button>
+    <button type="button" v-on:click="showAllBoats" class="btn btn-primary btn-change">View all boats</button>
     <div v-if="boatsMode === true">
       <div class="search-inline">
         <input type="search" v-model="searchInputBoat">
@@ -105,7 +105,7 @@
   <br>
   <!-- FishingInstructorAdventure -->
   <div>
-    <button type="button" v-on:click="showAllAdventure" class="btn btn-primary btn-change">Show all fishing instructor adventure</button>
+    <button type="button" v-on:click="showAllAdventure" class="btn btn-primary btn-change">View all fishing instructor adventure</button>
     <div v-if="adventureMode === true">
       <div class="search-inline">
         <input type="search" v-model="searchInputAdventure">
@@ -391,7 +391,6 @@ export default {
       axios.get('http://localhost:8080/fishingInstructorAdventure/getAll')
       .then(response => {
         this.adventures = response.data;
-        console.log(response);
         //prosecna ocena fali
       })
     },
@@ -501,6 +500,8 @@ export default {
   
   },
   mounted(){ 
+	localStorage.removeItem('role');
+    localStorage.removeItem('token');
   },
 }
 </script>

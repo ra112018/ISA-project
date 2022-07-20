@@ -21,6 +21,7 @@ export default {
     },
   mounted(){ 
     localStorage.removeItem('role');
+    localStorage.removeItem('token');
     },
 }
 </script>
