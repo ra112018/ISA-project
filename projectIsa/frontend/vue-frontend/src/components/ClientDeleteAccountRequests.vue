@@ -16,14 +16,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="request in requests" :key="request">
+            <tr v-for="(request,index) in requests" :key="index">
             <th scope="row"></th>
             <td>{{request.client.name}}</td>
             <td>{{request.client.surname}}</td>
             <td>{{request.client.email}}</td>
             <td>{{request.description}}</td>
-            <td><button class="dugme" @Click="approve(request, explanation[request])" id="yes">Yes</button><button @Click="deny(request, explanation[request])" class="dugme" id="no">No</button></td>
-            <td>because of <input v-model='explanation[request]'></td>
+            <td><button class="dugme" @Click="approve(request, explanation[index], index)" id="yes">Yes</button><button @Click="deny(request, explanation[index], index)" class="dugme" id="no">No</button></td>
+            <td>because of <input v-model='explanation[index]'></td>
             </tr>
         </tbody>
     </table>
@@ -48,7 +48,7 @@ export default {
        }
     },
     methods: {
-        approve(request, explanation){
+        approve(request, explanation, index){
 
         this.reply = {}
         this.reply.clientDeleteAccountRequestId = request.id;
@@ -60,8 +60,11 @@ export default {
             alert("Approved!")
         )
 
+        this.requests.splice(index,1);
+        this.explanation[index] = null;
+
        },
-        deny(request, explanation){
+        deny(request, explanation, index){
 
         this.reply = {}
         this.reply.clientDeleteAccountRequestId = request.id;
@@ -70,10 +73,14 @@ export default {
         
         axios.post('http://localhost:8080/clientDeleteAccountRequests/deny', this.reply)
         .then(
-            alert("Denied!")   
+            alert("Denied!")
         )
 
+        this.requests.splice(index,1);
+        this.explanation[index] = null;
+
        },
+
     },
     mounted() {
         const token = localStorage.getItem('token');
