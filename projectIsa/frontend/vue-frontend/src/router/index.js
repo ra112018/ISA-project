@@ -10,6 +10,7 @@ import LoginUser from "../components/LoginUser.vue";
 import ClientHomePage from "../components/ClientHomePage.vue";
 import InstructorHomePage from "../components/InstructorHomePage.vue";
 import ClientProfile from "../components/ClientProfile.vue";
+import ClientDeleteAccountRequests from "../components/ClientDeleteAccountRequests.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -58,6 +59,10 @@ const router = createRouter({
     {
       path: "/client-profile",
       component: ClientProfile,
+    },
+    {
+      path: "/client-delete-account-requests",
+      component: ClientDeleteAccountRequests,
     },
   ],
 });

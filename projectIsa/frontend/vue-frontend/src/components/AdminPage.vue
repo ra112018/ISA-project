@@ -9,6 +9,9 @@
                 <div class="links">
                 <router-link to="/" class="adminLink">Admin privileges</router-link>
                 </div>
+                <div class="links">
+                <router-link to="/client-delete-account-requests" class="adminLink">Client delete account requests</router-link>
+                </div>
             </div>
       </nav>
     </div>

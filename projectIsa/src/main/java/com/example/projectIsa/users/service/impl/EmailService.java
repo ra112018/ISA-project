@@ -51,4 +51,33 @@ public class EmailService implements IEmailService{
         emailContext.send("firma4validation@gmail.com", title, "registrationDenied", context);
 		
 	}
+
+	public void sendClientAccountDeletionRequest(String description, Client client) {
+		String title = "Client delete account request";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
+        context.setVariable("description", String.format("%s", description));
+        emailContext.send("firma4validation@gmail.com", title, "clientDeleteAccountRequest", context);
+		
+	}
+
+	public void sendClientAccountDeletionApproveReplyRequest(Client client) {
+		String title = "Account deletion request reply";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
+        emailContext.send("firma4validation@gmail.com", title, "clientAccountDeletionApproveReplyRequest", context);
+		
+	}
+
+	public void sendClientAccountDeletionDenyRequest(String description, Client client) {
+		String title = "Account deletion request reply";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
+        context.setVariable("description", String.format("%s", description));
+        emailContext.send("firma4validation@gmail.com", title, "clientAccountDeletionDenyRequest", context);
+		
+	}
 }

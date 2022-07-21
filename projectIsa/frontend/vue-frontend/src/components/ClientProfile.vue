@@ -46,9 +46,11 @@
         </form>
         
     </div>
-    <button type="submit" v-on:click="turnChangePassword" v-if="changePasswordMode ===false" class="btn btn-primary btn-change">Change password</button>
+    <button type="submit" v-on:click="turnChangePassword" v-if="changePasswordMode ===false" class="btn btn-primary btn-change">Change password</button><br>
+    <button type="submit" v-on:click="turnDeleteProfileMode" v-if="deleteProfileMode ===false" class="btn btn-primary btn-change">Delete profile</button>
     </div>  
 
+    <!-- Password change -->
     <div v-if="changePasswordMode ===true" align="center">
         <h1>Change password</h1> 
 
@@ -71,7 +73,23 @@
 
         </form>
     </div>
+    </div>
 
+    <!-- Password change -->
+    <div v-if="deleteProfileMode ===true" align="center">
+        <h1>Delete your profile</h1> 
+
+        <div class="d-flex justify-content-around">
+            <form @submit="formSubmitDeleteProfile">
+                <div class="w-50 m-3">
+                    <label for="text" class="form-label">Why do you want to delete your profile?</label>
+                    <textarea type="text" class="form-control description" id="deleteProfile" placeholder="Enter your reason for deleting profile" name="deleteProfile" v-model="deleteProfile" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Send request</button>
+
+            </form>
+        </div>
     </div> 
 </template>
 
@@ -100,7 +118,9 @@ export default {
             showErrorMessage : false,
             changePasswordMode : false,
             oldPassword : null,
-            repeatPassword : null
+            repeatPassword : null,
+            deleteProfileMode : false,
+            deleteProfile : null
        }
     },
     methods: {
@@ -212,7 +232,6 @@ export default {
             this.$router.push({path: '/'});
         }else {
         const decodedToken = VueJwtDecode.decode(token);
-        console.log(decodedToken);
           if(decodedToken.user_role === 'Administrator'){
               alert("Nije dozvoljen pristup");
               this.$router.push({path: '/'});
@@ -223,7 +242,27 @@ export default {
             }
           }  
         } 
-      }
+        },
+        turnDeleteProfileMode() {
+            this.deleteProfileMode = true;
+        },
+        formSubmitDeleteProfile(e) {
+        e.preventDefault();
+        this.errors = null;
+
+        const token = localStorage.getItem('token');
+        const decodedToken = VueJwtDecode.decode(token);
+
+        this.profileDelete = {}
+        this.profileDelete.clientId = decodedToken.id;
+        this.profileDelete.description = this.deleteProfile;
+        
+        axios.post('http://localhost:8080/clientDeleteAccountRequests/add', this.profileDelete)
+        .then(
+            alert("Your request has been sent to admin!")
+        )
+  
+        },
     },
     mounted(){
         const token = localStorage.getItem('token');
@@ -287,6 +326,11 @@ button {
 .btn-change {
     margin-bottom: 5%;
     margin-top: -3%;
+}
+
+.description {
+    height: 200px;
+    width: 300px;
 }
 
 </style>

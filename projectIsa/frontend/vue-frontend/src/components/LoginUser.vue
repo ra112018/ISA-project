@@ -51,7 +51,10 @@ export default {
                 
                 axios.post('http://localhost:8080/auth/login', data)
                 .then(response => {
-                    if(response.data.user.role == "Client"){
+                    if(response.data.user.deleted == true){
+                        alert("Your account has been deleted!")
+                    }
+                    else if(response.data.user.role == "Client"){
                         localStorage.setItem('role','Client');
                         localStorage.setItem('token',response.data.accessToken);
                         this.$router.push({path: '/client-home-page'});
@@ -61,7 +64,8 @@ export default {
                         this.$router.push({path: '/instructor-home-page'});
                     }
                     else if(response.data.user.role == "Administrator"){
-                        localStorage.setItem('role','Administrator')
+                        localStorage.setItem('role','Administrator');
+                        localStorage.setItem('token',response.data.accessToken);
                         this.$router.push({path: '/admin-home-page'});
                     }
                 })	
