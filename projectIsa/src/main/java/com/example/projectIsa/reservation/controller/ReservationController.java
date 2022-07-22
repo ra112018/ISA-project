@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,17 @@ public class ReservationController {
     @GetMapping("/getPreviousClientReservations/{clientId}")
     public List<Reservation> getPreviousClientReservations(@PathVariable Integer clientId) throws ParseException {
         return reservationService.findPreviousClientReservations(clientId);
+    }
+    
+    //@ClientAuthorization
+    @GetMapping("/getFutureClientReservations/{clientId}")
+    public List<Reservation> getFutureClientReservations(@PathVariable Integer clientId) throws ParseException {
+        return reservationService.findFutureClientReservations(clientId);
+    }
+    
+    //@ClientAuthorization
+    @PostMapping("/cancelReservation/{reservationId}")
+    public boolean cancelReservation(@PathVariable Integer reservationId) throws ParseException {
+        return reservationService.cancelReservation(reservationId);
     }
 }

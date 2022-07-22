@@ -15,4 +15,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query(value = "SELECT q FROM Reservation q WHERE q.client.id = ?1 and CAST(q.startTime as date) < CAST(?2 as date) and q.cancelled = false")
     List<Reservation> findPreviousClientReservations(Integer clientId, Date date);
 
+    @Query(value = "SELECT q FROM Reservation q WHERE q.client.id = ?1 and CAST(q.startTime as date) > CAST(?2 as date) and q.cancelled = false")
+	List<Reservation> findFutureClientReservations(Integer clientId, Date date);
+
 }

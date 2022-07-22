@@ -9,7 +9,7 @@
                         <router-link v-if="isLoggedIn ==='FishingInstructor'" to="/instructor-home-page" class="nav-item nav-link">Home</router-link>
                     </div>
                     <div class="navbar-nav ms-auto">
-                        <router-link v-if="isLoggedIn ==='Client'" to="/client-reservations-history" class="nav-item nav-link">Reservation history</router-link>
+                        <router-link v-if="isLoggedIn ==='Client'" to="/client-reservations-history" class="nav-item nav-link">Reservations</router-link>
                         <router-link v-if="isLoggedIn ==='Client'" to="/client-profile" class="nav-item nav-link">Profile</router-link>                        
                         <router-link v-if="!isLoggedIn" to="/registration-choice" class="nav-item nav-link">Registration</router-link>
                         <router-link v-if="!isLoggedIn" to="/login" class="nav-item nav-link">Login</router-link>

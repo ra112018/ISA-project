@@ -24,4 +24,17 @@ public class ReservationService implements IReservationService{
 	public List<Reservation> findPreviousClientReservations(Integer clientId) {
 		return reservationRepository.findPreviousClientReservations(clientId,new Date());
 	}
+
+	@Override
+	public List<Reservation> findFutureClientReservations(Integer clientId) {
+		return reservationRepository.findFutureClientReservations(clientId,new Date());
+	}
+
+	@Override
+	public boolean cancelReservation(Integer reservationId) {
+		Reservation reservation = reservationRepository.getById(reservationId);
+        reservation.setCancelled(true);
+        reservationRepository.save(reservation);
+        return true;
+	}
 }

@@ -53,6 +53,8 @@ insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,
 insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,cancelled) values (2,6,2,'2021-11-01 10:00:00','2021-11-11 10:00:00',20000,false);
 insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,cancelled) values (3,7,2,'2022-03-27 10:00:00','2022-03-29 10:00:00',5000,false);
 insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,cancelled) values (4,9,2,'2022-06-21 10:00:00','2022-06-23 10:00:00',2000,false);
+insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,cancelled) values (5,2,2,'2022-08-25 10:00:00','2022-08-27 10:00:00',6000,false);
+insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,cancelled) values (6,3,2,'2022-07-24 10:00:00','2022-07-27 10:00:00',7000,false);
 
 alter sequence user_entity_id_seq restart with 5;
 alter sequence user_address_id_seq restart with 5;

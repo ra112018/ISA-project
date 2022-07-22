@@ -8,4 +8,8 @@ public interface IReservationService {
 
 	List<Reservation> findPreviousClientReservations(Integer clientId);
 
+	List<Reservation> findFutureClientReservations(Integer clientId);
+
+	boolean cancelReservation(Integer reservationId);
+
 }

@@ -1,6 +1,20 @@
 <template>
   <div>     
     <NavigationBar />
+    <div>
+        <h1 class="display-2 text-center mt-3 mb-4">Upcoming reservations</h1>
+
+        <div class="reservation-inline" v-for="upcomingReservation in upcomingReservations" v-bind:key="upcomingReservation.id">
+            <div class="reservationView">
+            <h2>{{upcomingReservation.rentingItem.name}}</h2>
+            <p>{{upcomingReservation.rentingItem.address}}</p>
+            <p>{{upcomingReservation.rentingItem.description}}</p>
+            <p>{{upcomingReservation.startTime}} - {{upcomingReservation.endTime}}</p>
+            <p>{{upcomingReservation.price}} din</p>
+            <button type="button" v-on:click="cancelReservation(upcomingReservation.id)" v-if="checkDates(upcomingReservation.startTime) == true" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
     <h1 class="display-2 text-center mt-3 mb-4">Reservation history</h1>
 
     <div>
@@ -106,6 +120,7 @@ export default {
         cottagesMode : false,
         boatsMode : false,
         instructorsMode : false,
+        upcomingReservations : []
       }
     },
     methods: {
@@ -302,7 +317,6 @@ export default {
         getAll(){
             axios.get('http://localhost:8080/reservations/getPreviousClientReservations/' + this.decodedToken.id)
             .then(response => {
-                console.log(response);
                 this.reservations = response.data;
                 for(let i = 0; i < this.reservations.length; i++){
                     var dateStart = new Date(this.reservations[i].startTime);
@@ -321,6 +335,35 @@ export default {
                 }
 
             })
+        },
+        getUpcoming(){
+            axios.get('http://localhost:8080/reservations/getFutureClientReservations/' + this.decodedToken.id)
+            .then(response => {
+                this.upcomingReservations = response.data;
+                for(let i = 0; i < this.upcomingReservations.length; i++){
+                    var dateStart = new Date(this.upcomingReservations[i].startTime);
+                    var dateEnd = new Date(this.upcomingReservations[i].endTime);
+                    this.upcomingReservations[i].startTime = dateStart.toString().substring(4, 16);
+                    this.upcomingReservations[i].endTime = dateEnd.toString().substring(4, 16);
+                }
+
+            })
+        },
+        checkDates(date) {
+            const today = new Date();
+            today.setDate(today.getDate() + 3)
+            if(new Date(date) > today){
+                return true;
+            }else {
+                return false;
+            }
+        },
+        cancelReservation(reservationId){
+            axios.post('http://localhost:8080/reservations/cancelReservation/' + reservationId)
+            .then(
+                alert("Successfully canceled!")
+            )
+            this.getUpcoming()
         }
     
     },
@@ -339,6 +382,7 @@ export default {
               this.$router.push({path: '/'});
           }else {
             this.getAll()
+            this.getUpcoming()
           }
           
         }

@@ -84,7 +84,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/clientDeleteAccountRequests/deny").permitAll()
                 
                 .antMatchers("/reservations/getPreviousClientReservations/{clientId}").permitAll()
-
+                .antMatchers("/reservations/getFutureClientReservations/{clientId}").permitAll()
+                .antMatchers("/reservations/cancelReservation/{reservationId}").permitAll()
+                
 
                 .anyRequest().authenticated().and()
 
