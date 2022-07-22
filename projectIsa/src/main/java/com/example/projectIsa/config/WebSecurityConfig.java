@@ -82,6 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/clientDeleteAccountRequests/getAll").permitAll()
                 .antMatchers("/clientDeleteAccountRequests/approve").permitAll()
                 .antMatchers("/clientDeleteAccountRequests/deny").permitAll()
+                
+                .antMatchers("/reservations/getPreviousClientReservations/{clientId}").permitAll()
 
 
                 .anyRequest().authenticated().and()

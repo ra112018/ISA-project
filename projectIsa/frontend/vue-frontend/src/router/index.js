@@ -11,6 +11,7 @@ import ClientHomePage from "../components/ClientHomePage.vue";
 import InstructorHomePage from "../components/InstructorHomePage.vue";
 import ClientProfile from "../components/ClientProfile.vue";
 import ClientDeleteAccountRequests from "../components/ClientDeleteAccountRequests.vue";
+import ClientHistoryReservations from "../components/ClientHistoryReservations.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -63,6 +64,10 @@ const router = createRouter({
     {
       path: "/client-delete-account-requests",
       component: ClientDeleteAccountRequests,
+    },
+    {
+      path: "/client-reservations-history",
+      component: ClientHistoryReservations,
     },
   ],
 });
