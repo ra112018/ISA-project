@@ -5,16 +5,22 @@
 
     <div>
         <div class="search-inline">
-            <input type="search" v-model="searchInput">
-            <span><button type="button" v-on:click="searchReservations" class="btn btn-primary">Search</button></span>
+            <label class="sort-text"><b>Type</b></label>           
+            <select v-model="typeCriteria" class="sort-inline">
+                    <option value="cottage">Cottage</option>
+                    <option value="boat">Boat</option>
+                    <option value="fishingAdventure">Fishing adventure</option>
+                    <option value="all">All</option>
+            </select> 
+            <button v-on:click="typeShow" class="btn btn-primary btn-width">Show</button> 
 
-            <label class="sort-text"><b>Criteria</b></label>
-            
+            <label class="sort-text"><b>Criteria</b></label>            
             <select v-model="sortCriteria" class="sort-inline">
-                    <option value="date">Date</option>
+                    <option value="startTime">Date</option>
                     <option value="price">Price</option>
                     <option value="duration">Duration</option>
-            </select>    	
+            </select> 
+
             <label class="sort-text"><b>Direction</b></label>
             <select v-model="sortType" class="sort-inline">
                     <option value="ascending">Ascending</option>
@@ -22,15 +28,55 @@
             </select>
                 <button v-on:click="sortThis" class="btn btn-primary">Sort</button>    
         </div><br>
-        <div class="reservation-inline" v-for="reservation in reservations" v-bind:key="reservation.id">
-            <div class="reservationView">
-            <h2>{{reservation.rentingItem.name}}</h2>
-            <p>{{reservation.rentingItem.address}}</p>
-            <p>{{reservation.rentingItem.description}}</p>
-            <p>{{reservation.startTime}} - {{reservation.endTime}}</p>
-            <p>{{reservation.price}} din</p>
+
+        <div v-if="allMode === true">
+            <div class="reservation-inline" v-for="reservation in reservations" v-bind:key="reservation.id">
+                <div class="reservationView">
+                <h2>{{reservation.rentingItem.name}}</h2>
+                <p>{{reservation.rentingItem.address}}</p>
+                <p>{{reservation.rentingItem.description}}</p>
+                <p>{{reservation.startTime}} - {{reservation.endTime}}</p>
+                <p>{{reservation.price}} din</p>
+                </div>
             </div>
         </div>
+
+        <div v-if="cottagesMode === true">
+            <div class="reservation-inline" v-for="cottage in cottages" v-bind:key="cottage.id">
+                <div class="reservationView">
+                <h2>{{cottage.rentingItem.name}}</h2>
+                <p>{{cottage.rentingItem.address}}</p>
+                <p>{{cottage.rentingItem.description}}</p>
+                <p>{{cottage.startTime}} - {{cottage.endTime}}</p>
+                <p>{{cottage.price}} din</p>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="boatsMode === true">
+            <div class="reservation-inline" v-for="boat in boats" v-bind:key="boat.id">
+                <div class="reservationView">
+                <h2>{{boat.rentingItem.name}}</h2>
+                <p>{{boat.rentingItem.address}}</p>
+                <p>{{boat.rentingItem.description}}</p>
+                <p>{{boat.startTime}} - {{boat.endTime}}</p>
+                <p>{{boat.price}} din</p>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="instructorsMode === true">
+            <div class="reservation-inline" v-for="instructor in instructors" v-bind:key="instructor.id">
+                <div class="reservationView">
+                <h2>{{instructor.rentingItem.name}}</h2>
+                <p>{{instructor.rentingItem.address}}</p>
+                <p>{{instructor.rentingItem.description}}</p>
+                <p>{{instructor.startTime}} - {{instructor.endTime}}</p>
+                <p>{{instructor.price}} din</p>
+                </div>
+            </div>
+        </div>
+
     </div> 
   </div>
 
@@ -50,19 +96,21 @@ export default {
     data() {
       return {
         reservations : [],
-        searchInput : null
+        searchInput : null,
+        token : null,
+        decodedToken : null,
+        cottages : [],
+        boats : [],
+        instructors : [],
+        allMode : true,
+        cottagesMode : false,
+        boatsMode : false,
+        instructorsMode : false,
       }
     },
     methods: {
-    searchReservations() {
-      //axios.get('http://localhost:8080/cottage/search/' + this.searchInput)
-      //.then(response => {
-      //  this.cottages = response.data;
-        
-      //})
-    },
     sortThis: function(){
-			if(this.sortCriteria != "date" && this.sortCriteria != "price" && this.sortCriteria != "duration")
+			if(this.sortCriteria != "startTime" && this.sortCriteria != "price" && this.sortCriteria != "duration")
 			{
 				alert("You must enter criteria for sorting!");
 			}
@@ -72,27 +120,52 @@ export default {
 			}
 			else
 			{
-				if(this.sortCriteria == "date")
+				if(this.sortCriteria == "startTime")
 				{
-					this.reservations.sort(this.compareDate)
+                    if(this.allMode == true){
+                        this.reservations.sort(this.compareDate)
+                    }else if(this.cottagesMode == true){
+                        this.cottages.sort(this.compareDate)
+                    }else if(this.boatsMode == true){
+                        this.boats.sort(this.compareDate)
+                    }else{
+                        this.instructors.sort(this.compareDate)
+                    }
+					
 				}
 				else if(this.sortCriteria == "price")
 				{
-					this.reservations.sort(this.comparePrice);
+                    if(this.allMode == true){
+                        this.reservations.sort(this.comparePrice);
+                    }else if(this.cottagesMode == true){
+                        this.cottages.sort(this.comparePrice)
+                    }else if(this.boatsMode == true){
+                        this.boats.sort(this.comparePrice)
+                    }else{
+                        this.instructors.sort(this.comparePrice)
+                    }					
 				}
 				else
 				{
-					this.reservations.sort(this.compareDuration);
+                    if(this.allMode == true){
+                        this.reservations.sort(this.compareDuration);
+                    }else if(this.cottagesMode == true){
+                        this.cottages.sort(this.compareDuration)
+                    }else if(this.boatsMode == true){
+                        this.boats.sort(this.compareDuration)
+                    }else{
+                        this.instructors.sort(this.compareDuration)
+                    }				
 				}
 										
 			}
 		},
 	  compareDate: function(o,t){
 			let first, second;
-			if(this.sortCriteria == "date")
+			if(this.sortCriteria == "startTime")
 			{
-				first = o.date;
-				second = t.date;
+				first = new Date(o.startTime);
+				second = new Date(t.startTime);
 			}
 			if(first < second)
 			{
@@ -157,23 +230,77 @@ export default {
 			}
 
 		},
-    
-    },
-    mounted(){ 
-      const token = localStorage.getItem('token');
-        if (token === null || token === undefined) {
-            alert("Nije dozvoljen pristup");
-            this.$router.push({path: '/'});
-        }else {
-        const decodedToken = VueJwtDecode.decode(token);
-          if(decodedToken.user_role === 'Administrator'){
-              alert("Nije dozvoljen pristup");
-              this.$router.push({path: '/'});
-          }else if(decodedToken.user_role === 'FishingInstructor'){
-              alert("Nije dozvoljen pristup");
-              this.$router.push({path: '/'});
-          }else {
-            axios.get('http://localhost:8080/reservations/getPreviousClientReservations/' + decodedToken.id)
+        compareDuration: function(o,t){
+			let first, second;
+			if(this.sortCriteria == "duration")
+			{
+				first = new Date(o.endTime) - new Date(o.startTime);
+				second = new Date(t.endTime) - new Date(t.startTime);
+			}
+			if(first < second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return -1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			else if(first > second)
+			{
+				if(this.sortType == 'ascending')
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				return 0;
+			}
+
+		},
+        typeShow(){          
+			if(this.typeCriteria != "cottage" && this.typeCriteria != "boat" && this.typeCriteria != "fishingAdventure" && this.typeCriteria != "all")
+			{
+				alert("You must enter criteria for type!");
+			}
+			else if(this.typeCriteria == "cottage")
+			{            
+                this.cottagesMode = true;
+                this.allMode = false;  
+                this.boatsMode = false;
+                this.instructorsMode = false; 
+			}
+			else if(this.typeCriteria == "boat")
+			{
+				this.boatsMode = true;	
+                this.cottagesMode = false;
+                this.allMode = false;  
+                this.instructorsMode = false;				
+			}
+            else if(this.typeCriteria == "fishingAdventure")
+			{
+                this.instructorsMode = true;
+                this.boatsMode = false;	
+                this.cottagesMode = false;
+                this.allMode = false;  										
+			}
+            else 
+            {
+                this.allMode = true;
+                this.instructorsMode = false;
+                this.boatsMode = false;	
+                this.cottagesMode = false;                
+            }
+		},
+        getAll(){
+            axios.get('http://localhost:8080/reservations/getPreviousClientReservations/' + this.decodedToken.id)
             .then(response => {
                 console.log(response);
                 this.reservations = response.data;
@@ -182,9 +309,36 @@ export default {
                     var dateEnd = new Date(this.reservations[i].endTime);
                     this.reservations[i].startTime = dateStart.toString().substring(4, 16);
                     this.reservations[i].endTime = dateEnd.toString().substring(4, 16);
+
+                    if(this.reservations[i].rentingItem.type == "Cottage"){
+                        this.cottages.push(this.reservations[i]);
+                    }else if(this.reservations[i].rentingItem.type == "Boat"){
+                        this.boats.push(this.reservations[i]);
+                    }else {
+                        this.instructors.push(this.reservations[i]);
+                    }
+
                 }
 
             })
+        }
+    
+    },
+    mounted(){ 
+      this.token = localStorage.getItem('token');
+        if (this.token === null || this.token === undefined) {
+            alert("Nije dozvoljen pristup");
+            this.$router.push({path: '/'});
+        }else {
+        this.decodedToken = VueJwtDecode.decode(this.token);
+          if(this.decodedToken.user_role === 'Administrator'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+          }else if(this.decodedToken.user_role === 'FishingInstructor'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+          }else {
+            this.getAll()
           }
           
         }
@@ -240,6 +394,11 @@ span {
   text-align: center;
   margin-top: 0.5%;
   margin-right: 1%;
+}
+
+.btn-width {
+    width: 12%;
+    margin-right: 2%;
 }
 
 </style>
