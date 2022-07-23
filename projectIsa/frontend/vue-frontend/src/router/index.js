@@ -12,6 +12,8 @@ import InstructorHomePage from "../components/InstructorHomePage.vue";
 import ClientProfile from "../components/ClientProfile.vue";
 import ClientDeleteAccountRequests from "../components/ClientDeleteAccountRequests.vue";
 import ClientHistoryReservations from "../components/ClientHistoryReservations.vue";
+import ClientComplaints from "../components/ClientComplaints.vue";
+
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -68,6 +70,10 @@ const router = createRouter({
     {
       path: "/client-reservations-history",
       component: ClientHistoryReservations,
+    },
+    {
+      path: "/client-complaints",
+      component: ClientComplaints,
     },
   ],
 });

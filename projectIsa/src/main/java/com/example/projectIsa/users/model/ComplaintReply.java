@@ -12,13 +12,12 @@ import javax.persistence.SequenceGenerator;
 import com.example.projectIsa.renting.model.RentingItem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-public class Complaint {
+public class ComplaintReply {
 
 	@Id
-	@SequenceGenerator(name = "complaint_id_seq", sequenceName = "complaint_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "complaint_id_seq")
+	@SequenceGenerator(name = "complaint_reply_id_seq", sequenceName = "complaint_reply_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "complaint_reply_id_seq")
     private Integer id;
 	
     private String description;
@@ -30,21 +29,18 @@ public class Complaint {
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private RentingItem rentingItem;
-    
-    private boolean answered;
 
     
-	public Complaint() {
+	public ComplaintReply() {
 		super();
 	}
 
-	public Complaint(Integer id, String description, Client client, RentingItem rentingItem,boolean answered) {
+	public ComplaintReply(Integer id, String description, Client client, RentingItem rentingItem) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.client = client;
 		this.rentingItem = rentingItem;
-		this.answered = answered;
 	}
 
 	public Integer getId() {
@@ -78,15 +74,4 @@ public class Complaint {
 	public void setRentingItem(RentingItem rentingItem) {
 		this.rentingItem = rentingItem;
 	}
-
-	public boolean isAnswered() {
-		return answered;
-	}
-
-	public void setAnswered(boolean answered) {
-		this.answered = answered;
-	}
-    
-	
-    
 }

@@ -93,4 +93,15 @@ public class EmailService implements IEmailService{
 		
 		
 	}
+
+	public void sendComplaintReplyEmail(String description, Client client, RentingItem rentingItem) {
+		String title = "Complaint reply";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
+        context.setVariable("rentingItem", String.format("%s, %s", rentingItem.getName(), rentingItem.getAddress()));
+        context.setVariable("description", String.format("%s", description));
+        emailContext.send("firma4validation@gmail.com", title, "clientComplaintReply", context);
+		
+	}
 }
