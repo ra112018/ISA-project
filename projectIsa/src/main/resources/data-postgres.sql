@@ -59,3 +59,4 @@ insert into reservations(id,renting_item_id,client_id,start_time,end_time,price,
 alter sequence user_entity_id_seq restart with 5;
 alter sequence user_address_id_seq restart with 5;
 alter sequence renting_item_id_seq restart with 10;
+alter sequence reservations_id_seq restart with 7;

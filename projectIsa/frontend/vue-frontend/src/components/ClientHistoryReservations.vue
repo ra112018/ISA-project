@@ -11,7 +11,7 @@
             <p>{{upcomingReservation.rentingItem.description}}</p>
             <p>{{upcomingReservation.startTime}} - {{upcomingReservation.endTime}}</p>
             <p>{{upcomingReservation.price}} din</p>
-            <button type="button" v-on:click="cancelReservation(upcomingReservation.id)" v-if="checkDates(upcomingReservation.startTime) == true" class="btn btn-primary">Cancel</button>
+            <button type="button" v-on:click="cancelReservation(upcomingReservation.id)" v-if="checkDates(upcomingReservation.startTime) == true" class="btn btn-primary btn-margin">Cancel</button>
             </div>
         </div>
     </div>
@@ -51,6 +51,13 @@
                 <p>{{reservation.rentingItem.description}}</p>
                 <p>{{reservation.startTime}} - {{reservation.endTime}}</p>
                 <p>{{reservation.price}} din</p>
+                <button v-on:click="turnComplaintMode(reservation.rentingItem.id)" v-if="complaintMode === false || !hiddenTodos.includes(reservation.rentingItem.id)" class="btn btn-primary btn-margin">Add complaint</button>
+                <div v-if="complaintMode === true && hiddenTodos.includes(reservation.rentingItem.id)" class="reservation-inline textarea-width">
+                    <h4 for="text" class="form-label">Your complaint</h4>
+                    <textarea type="text" class="form-control textarea-height" id="complaint" placeholder="Enter your complaint" name="complaint" v-model="complaint" required></textarea><br>
+                    <button v-on:click="addComplaint(reservation.rentingItem.id)" v-if="complaintMode === true" class="btn btn-primary btn-margin">Send complaint</button><br>
+                    <button v-on:click="backComplaint" v-if="complaintMode === true" class="btn btn-primary btn-margin">Cancel</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -63,6 +70,13 @@
                 <p>{{cottage.rentingItem.description}}</p>
                 <p>{{cottage.startTime}} - {{cottage.endTime}}</p>
                 <p>{{cottage.price}} din</p>
+                <button v-on:click="turnComplaintMode(cottage.rentingItem.id)" v-if="complaintMode === false || !hiddenTodos.includes(cottage.rentingItem.id)" class="btn btn-primary btn-margin">Add complaint</button>
+                <div v-if="complaintMode === true && hiddenTodos.includes(cottage.rentingItem.id)" class="reservation-inline textarea-width">
+                    <h4 for="text" class="form-label">Your complaint</h4>
+                    <textarea type="text" class="form-control textarea-height" id="complaint" placeholder="Enter your complaint" name="complaint" v-model="complaint" required></textarea><br>
+                    <button v-on:click="addComplaint(cottage.rentingItem.id)" v-if="complaintMode === true" class="btn btn-primary btn-margin">Send complaint</button><br>
+                    <button v-on:click="backComplaint" v-if="complaintMode === true" class="btn btn-primary btn-margin">Cancel</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -75,6 +89,13 @@
                 <p>{{boat.rentingItem.description}}</p>
                 <p>{{boat.startTime}} - {{boat.endTime}}</p>
                 <p>{{boat.price}} din</p>
+                <button v-on:click="turnComplaintMode(boat.rentingItem.id)" v-if="complaintMode === false || !hiddenTodos.includes(boat.rentingItem.id)" class="btn btn-primary btn-margin">Add complaint</button>
+                <div v-if="complaintMode === true && hiddenTodos.includes(boat.rentingItem.id)" class="reservation-inline textarea-width">
+                    <h4 for="text" class="form-label">Your complaint</h4>
+                    <textarea type="text" class="form-control textarea-height" id="complaint" placeholder="Enter your complaint" name="complaint" v-model="complaint" required></textarea><br>
+                    <button v-on:click="addComplaint(boat.rentingItem.id)" v-if="complaintMode === true" class="btn btn-primary btn-margin">Send complaint</button><br>
+                    <button v-on:click="backComplaint" v-if="complaintMode === true" class="btn btn-primary btn-margin">Cancel</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -87,6 +108,13 @@
                 <p>{{instructor.rentingItem.description}}</p>
                 <p>{{instructor.startTime}} - {{instructor.endTime}}</p>
                 <p>{{instructor.price}} din</p>
+                <button v-on:click="turnComplaintMode(instructor.rentingItem.id)" v-if="complaintMode === false || !hiddenTodos.includes(instructor.rentingItem.id)" class="btn btn-primary btn-margin">Add complaint</button>
+                <div v-if="complaintMode === true && hiddenTodos.includes(instructor.rentingItem.id)" class="reservation-inline textarea-width">
+                    <h4 for="text" class="form-label">Your complaint</h4>
+                    <textarea type="text" class="form-control textarea-height" id="complaint" placeholder="Enter your complaint" name="complaint" v-model="complaint" required></textarea><br>
+                    <button v-on:click="addComplaint(instructor.rentingItem.id)" v-if="complaintMode === true" class="btn btn-primary btn-margin">Send complaint</button><br>
+                    <button v-on:click="backComplaint" v-if="complaintMode === true" class="btn btn-primary btn-margin">Cancel</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -120,7 +148,9 @@ export default {
         cottagesMode : false,
         boatsMode : false,
         instructorsMode : false,
-        upcomingReservations : []
+        upcomingReservations : [],
+        complaintMode : false,
+        hiddenTodos : []
       }
     },
     methods: {
@@ -364,6 +394,31 @@ export default {
                 alert("Successfully canceled!")
             )
             this.getUpcoming()
+        },
+        turnComplaintMode(id){
+            this.hiddenTodos.push(id)
+            this.complaintMode = true;
+        },
+        addComplaint(rentingItemId){
+            var data = {
+                    clientId: this.decodedToken.id,
+                    rentingItemId: rentingItemId,
+                    description: this.complaint
+                }
+
+            axios.post('http://localhost:8080/complaint/add', data)
+            .then(
+                alert("Your complaint has been sent to admin!")
+            )
+
+            this.complaintMode = false;
+            this.complaint = null;
+            this.hiddenTodos.splice(0);
+        },
+        backComplaint() {
+            this.complaintMode = false;
+            this.complaint = null;
+            this.hiddenTodos.splice(0);
         }
     
     },
@@ -399,7 +454,7 @@ export default {
 
 .reservationView {
   width: 360px;
-  height: 300px;
+  height: fit-content;
   border: solid 1px #555;
   background-color:beige;
   box-shadow: 10px -10px 5px  rgba(0,0,0,0.6);
@@ -443,6 +498,19 @@ span {
 .btn-width {
     width: 12%;
     margin-right: 2%;
+}
+
+.textarea-width {
+    width: 300px;
+    height: 320px;
+}
+
+.textarea-height {
+    height: 150px;
+}
+
+.btn-margin {
+    margin-bottom: 7%;
 }
 
 </style>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import com.example.projectIsa.config.EmailContext;
+import com.example.projectIsa.renting.model.RentingItem;
 import com.example.projectIsa.users.model.Client;
 import com.example.projectIsa.users.model.PasswordToken;
 import com.example.projectIsa.users.repository.PasswordTokenRepository;
@@ -78,6 +79,18 @@ public class EmailService implements IEmailService{
         context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
         context.setVariable("description", String.format("%s", description));
         emailContext.send("firma4validation@gmail.com", title, "clientAccountDeletionDenyRequest", context);
+		
+	}
+
+	public void sendComplaintEmail(String description, Client client, RentingItem rentingItem) {
+		String title = "Complaint";
+
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", client.getName(), client.getSurname()));
+        context.setVariable("rentingItem", String.format("%s, %s", rentingItem.getName(), rentingItem.getAddress()));
+        context.setVariable("description", String.format("%s", description));
+        emailContext.send("firma4validation@gmail.com", title, "clientComplaint", context);
+		
 		
 	}
 }
