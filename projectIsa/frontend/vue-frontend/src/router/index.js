@@ -13,7 +13,12 @@ import ClientProfile from "../components/ClientProfile.vue";
 import ClientDeleteAccountRequests from "../components/ClientDeleteAccountRequests.vue";
 import ClientHistoryReservations from "../components/ClientHistoryReservations.vue";
 import ClientComplaints from "../components/ClientComplaints.vue";
-
+import BoatOwnerHomePage from "../components/BoatOwnerHomePage.vue";
+import BoatOwnerProfile from "../components/BoatOwnerProfile.vue";
+import CottageOwnerHomePage from "../components/CottageOwnerHomePage.vue";
+import CottageOwnerProfile from "../components/CottageOwnerProfile.vue";
+import CottageProfile from "../components/CottageProfile.vue";
+import BoatProfile from "../components/BoatProfile.vue";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
@@ -74,6 +79,30 @@ const router = createRouter({
     {
       path: "/client-complaints",
       component: ClientComplaints,
+    },
+    {
+      path: "/boatOwner-home-page",
+      component: BoatOwnerHomePage,
+    },
+    {
+      path: "/boatOwner-profile",
+      component: BoatOwnerProfile,
+    },
+    {
+      path: "/cottageOwner-home-page",
+      component: CottageOwnerHomePage,
+    },
+    {
+      path: "/cottageOwner-profile",
+      component: CottageOwnerProfile,
+    },
+    {
+      path: "/cottage-profile",
+      component: CottageProfile,
+    },
+    {
+      path: "/boat-profile",
+      component: BoatProfile,
     },
   ],
 });
