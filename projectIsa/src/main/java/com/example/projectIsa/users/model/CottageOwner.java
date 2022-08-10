@@ -4,42 +4,30 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.example.projectIsa.users.model.enums.AllowedLogin;
+
 @Entity
 @DiscriminatorValue("CottageOwner")
 public class CottageOwner extends User{
 
 	private String explanationCO;
 
-	private String verificationCO;
-
-	private Boolean isEnabledCO;
-	
-	public CottageOwner() {
-		this.isEnabledCO = false;
-	}
+	private AllowedLogin allowLoginCO;
 
 	public String getExplanationCO() {
 		return explanationCO;
 	}
 
-	public void setExplanationCO(String explanationCO) {
+	public void setExplanationCO(String explanationBO) {
 		this.explanationCO = explanationCO;
 	}
 
-	public String getVerificationCO() {
-		return verificationCO;
+	public AllowedLogin getAllowLoginCO() {
+		return allowLoginCO;
 	}
 
-	public void setVerificationCO(String verificationCO) {
-		this.verificationCO = verificationCO;
-	}
-
-	public Boolean getIsEnabledCO() {
-		return isEnabledCO;
-	}
-
-	public void setIsEnabledCO(Boolean isEnabledCO) {
-		this.isEnabledCO = isEnabledCO;
+	public void setAllowLoginCO(AllowedLogin allowLoginCO) {
+		this.allowLoginCO = allowLoginCO;
 	}
 	
 }

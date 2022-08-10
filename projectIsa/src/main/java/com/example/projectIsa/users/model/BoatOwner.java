@@ -3,19 +3,15 @@ package com.example.projectIsa.users.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import com.example.projectIsa.users.model.enums.AllowedLogin;
+
 @Entity
 @DiscriminatorValue("BoatOwner")
 public class BoatOwner extends User{
-
+	
 	private String explanationBO;
-	
-	private String verificationBO;
 
-	private Boolean isEnabledBO;
-	
-	public BoatOwner() {
-		this.isEnabledBO = false;
-	}
+	private AllowedLogin allowLoginBO;
 
 	public String getExplanationBO() {
 		return explanationBO;
@@ -25,20 +21,12 @@ public class BoatOwner extends User{
 		this.explanationBO = explanationBO;
 	}
 
-	public String getVerificationBO() {
-		return verificationBO;
+	public AllowedLogin getAllowLoginBO() {
+		return allowLoginBO;
 	}
 
-	public void setVerificationBO(String verificationBO) {
-		this.verificationBO = verificationBO;
-	}
-
-	public Boolean getIsEnabledBO() {
-		return isEnabledBO;
-	}
-
-	public void setIsEnabledBO(Boolean isEnabledBO) {
-		this.isEnabledBO = isEnabledBO;
+	public void setAllowLoginBO(AllowedLogin allowLoginBO) {
+		this.allowLoginBO = allowLoginBO;
 	}
 	
 }
