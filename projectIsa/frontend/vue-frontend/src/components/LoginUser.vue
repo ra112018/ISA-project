@@ -63,6 +63,14 @@ export default {
                         localStorage.setItem('role','FishingInstructor')
                         this.$router.push({path: '/instructor-home-page'});
                     }
+                    else if(response.data.user.role == "BoatOwner"){
+                        localStorage.setItem('role','BoatOwner')
+                        this.$router.push({path: '/boatOwner-home-page'});
+                    }
+                    else if(response.data.user.role == "CottageOwner"){
+                        localStorage.setItem('role','CottageOwner')
+                        this.$router.push({path: '/cottageOwner-home-page'});
+                    }
                     else if(response.data.user.role == "Administrator"){
                         localStorage.setItem('role','Administrator');
                         localStorage.setItem('token',response.data.accessToken);

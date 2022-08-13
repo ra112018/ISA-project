@@ -36,7 +36,9 @@ public class RegistrationController {
 	@PostMapping(value = "/registration", consumes =  MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?>  registrationOwner(@RequestBody OwnerDTO ownerDto) throws Exception {
 		try {
-			registrationService.registerInstructor(ownerDto);
+			//registrationService.registerInstructor(ownerDto);
+			registrationService.registerBoatOwner(ownerDto);
+			//registrationService.registerCottageOwner(ownerDto);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -47,10 +49,13 @@ public class RegistrationController {
 	@GetMapping(value = "/requests")
 	public ResponseEntity<?> getRegistrationRequests() {
 		try {
-			return new ResponseEntity<>(registrationService.getRegistrationRequests(),HttpStatus.OK);
+			//registrationService.getRegistrationRequests();
+			//registrationService.getRegistrationsRequests();
+			//registrationService.getRegistrationsRequest();
+			return new ResponseEntity<>(registrationService.getRegistrationsRequests(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
