@@ -157,7 +157,8 @@ export default {
             return /^[0-9]+$/.test(value);
         },
     },
-    mounted(){              
+    mounted(){
+                  
     },
     created() {
         

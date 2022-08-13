@@ -63,6 +63,12 @@ export default {
             if(decodedToken.user_role === 'FishingInstructor'){
               alert("Nije dozvoljen pristup");
               this.$router.push({path: '/'});
+            }else if(decodedToken.user_role === 'Client'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }else if(decodedToken.user_role === 'CottageOwner'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
             }
           }  
         } 

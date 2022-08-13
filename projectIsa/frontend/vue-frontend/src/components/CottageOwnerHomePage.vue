@@ -38,6 +38,7 @@
 
 <script>
 import NavigationBar from "../components/NavigationBar.vue";
+import VueJwtDecode from 'vue-jwt-decode';
 
 export default {
     name : 'CottageOwnerHomePage',
@@ -48,7 +49,33 @@ export default {
 
     },
     methods: {
-       
+       getToken() {
+        const token = localStorage.getItem('token');
+        if (token === null || token === undefined) {
+            alert("Nije dozvoljen pristup");
+            this.$router.push({path: '/'});
+        }else {
+        const decodedToken = VueJwtDecode.decode(token);
+          if(decodedToken.user_role === 'Administrator'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+          }else {
+            if(decodedToken.user_role === 'FishingInstructor'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }else if(decodedToken.user_role === 'Client'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }else if(decodedToken.user_role === 'BoatOwner'){
+              alert("Nije dozvoljen pristup");
+              this.$router.push({path: '/'});
+            }
+          }  
+        } 
+      }
+    },
+    mounted(){ 
+      this.getToken();
     },
     created() {
         
