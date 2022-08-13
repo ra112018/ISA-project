@@ -1,6 +1,8 @@
 insert into authority(id, name) values (1, 'ROLE_ADMIN');
 insert into authority(id, name) values (2, 'ROLE_CLIENT');
 insert into authority(id, name) values (3, 'ROLE_INSTRUCTOR');
+insert into authority(id, name) values (4, 'ROLE_BOATOWNER');
+insert into authority(id, name) values (5, 'ROLE_COTTAGEOWNER');
 
 insert into cottages(id,description,name,address,rules,capacity,type) values 
 (1,'Odlicna vikendica na Kopaoniku za odmor sa porodicom.','Vikendica Anastasija','Njegoseva 8,Kopaonik','Potrebno je dati 50e unaped.',30,'Cottage');
@@ -27,6 +29,10 @@ insert into users (role,id,deleted,email,name,password,phone_number,surname,enab
 ('FishingInstructor',3,false,'vlada@gmail.com','Vladimir','$2a$10$EfRcY6qiz3FUbUZ/UUdyCuFE9QcB8BlN25NXBqbvdBHAhAOiFOfn6','0626554304','Vladic',true);
 insert into users (role,id,deleted,email,name,password,phone_number,surname,enabled) values
 ('FishingInstructor',4,false,'veljko@gmail.com','Veljko','$2a$10$EfRcY6qiz3FUbUZ/UUdyCuFE9QcB8BlN25NXBqbvdBHAhAOiFOfn6','064432123','Veljkovic',true);
+insert into users (role,id,deleted,email,name,password,phone_number,surname,enabled) values
+('BoatOwner',5,false,'maja@gmail.com','Maja','$2a$10$OqKaxuT.pLA978BUIG/apeHUInaMz.2Rvs4nHjV.z3NjzoWAbAMEm','065435243','Majic',true);
+insert into users (role,id,deleted,email,name,password,phone_number,surname,enabled) values
+('CottageOwner',6,false,'jovan@gmail.com','Jovan','$2a$10$izBJkjtgo266DwJL1/svfOe0oENFcUd/KnBrGLXFuNf09JuDKElJ2','064534233','Jovanovic',true);
 
 insert into address (id,longitude,latitude,street,city,state,house_number,postcode) values
 (1,0,0,'Njegoseva','Novi Sad','Srbija','5','21000');

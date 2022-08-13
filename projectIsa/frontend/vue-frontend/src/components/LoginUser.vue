@@ -64,11 +64,13 @@ export default {
                         this.$router.push({path: '/instructor-home-page'});
                     }
                     else if(response.data.user.role == "BoatOwner"){
-                        localStorage.setItem('role','BoatOwner')
+                        localStorage.setItem('role','BoatOwner');
+                        localStorage.setItem('token',response.data.accessToken);
                         this.$router.push({path: '/boatOwner-home-page'});
                     }
                     else if(response.data.user.role == "CottageOwner"){
-                        localStorage.setItem('role','CottageOwner')
+                        localStorage.setItem('role','CottageOwner');
+                        localStorage.setItem('token',response.data.accessToken);
                         this.$router.push({path: '/cottageOwner-home-page'});
                     }
                     else if(response.data.user.role == "Administrator"){
